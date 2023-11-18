@@ -21,6 +21,10 @@ void WeatherPlugin::setup()
     currentStatus = NONE;
 }
 
+void WeatherPlugin::activate() {
+    draw();
+}
+
 void WeatherPlugin::loop()
 {
     if (millis() >= this->lastUpdate + (1000 * 60 * 30))
@@ -48,11 +52,11 @@ void WeatherPlugin::update()
         DynamicJsonDocument doc(2048);
         deserializeJson(doc, http.getString());
 
-        int temperature = round(doc["current_condition"][0]["temp_C"].as<float>());
-        int weatherCode = doc["current_condition"][0]["weatherCode"].as<int>();
-        int weatherIcon = 0;
-        int iconY = 1;
-        int tempY = 10;
+        temperature = round(doc["current_condition"][0]["temp_C"].as<float>());
+        weatherCode = doc["current_condition"][0]["weatherCode"].as<int>();
+        weatherIcon = 0;
+        iconY = 1;
+        tempY = 10;
 
         if (std::find(thunderCodes.begin(), thunderCodes.end(), weatherCode) != thunderCodes.end())
         {
@@ -89,31 +93,36 @@ void WeatherPlugin::update()
             iconY = 2;
         }
 
-        Screen.clear();
-        Screen.drawWeather(0, iconY, weatherIcon, 100);
+        draw();
+    }
+}
 
-        if (temperature >= 10)
-        {
-            Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(1, tempY, {(temperature - temperature % 10) / 10, temperature % 10});
-        }
-        else if (temperature <= -10)
-        {
-            Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
-            Screen.drawCharacter(11, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(3, tempY, {(temperature - temperature % 10) / 10, temperature % 10});
-        }
-        else if (temperature >= 0)
-        {
-            Screen.drawCharacter(7, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(4, tempY, {temperature});
-        }
-        else
-        {
-            Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
-            Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(3, tempY, {temperature});
-        }
+void WeatherPlugin::draw()
+{
+    Screen.clear();
+    Screen.drawWeather(0, iconY, weatherIcon, 100);
+
+    if (temperature >= 10)
+    {
+        Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+        Screen.drawNumbers(1, tempY, {(temperature - temperature % 10) / 10, temperature % 10});
+    }
+    else if (temperature <= -10)
+    {
+        Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
+        Screen.drawCharacter(11, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+        Screen.drawNumbers(3, tempY, {(temperature - temperature % 10) / 10, temperature % 10});
+    }
+    else if (temperature >= 0)
+    {
+        Screen.drawCharacter(7, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+        Screen.drawNumbers(4, tempY, {temperature});
+    }
+    else
+    {
+        Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
+        Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+        Screen.drawNumbers(3, tempY, {temperature});
     }
 }
 

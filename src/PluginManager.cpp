@@ -28,6 +28,8 @@ void PluginManager::init()
         Serial.print(plugin->getName());
         Serial.print(" id: ");
         Serial.println(plugin->getId());
+
+        plugin->setup();
     }
 
 #ifdef ENABLE_STORAGE
@@ -83,7 +85,8 @@ void PluginManager::setActivePlugin(const char *pluginName)
 
             Screen.clear();
             activePlugin = plugin;
-            activePlugin->setup();
+            // activePlugin->setup();
+            activePlugin->activate();
             break;
         }
     }
@@ -97,14 +100,6 @@ void PluginManager::setActivePluginById(int pluginId)
         {
             setActivePlugin(plugin->getName());
         }
-    }
-}
-
-void PluginManager::setupActivePlugin()
-{
-    if (activePlugin)
-    {
-        activePlugin->setup();
     }
 }
 

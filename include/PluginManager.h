@@ -22,6 +22,7 @@ public:
     virtual void teardown();
     virtual void websocketHook(DynamicJsonDocument &request);
     virtual void setup() = 0;
+    virtual void activate() = 0;
     virtual void loop();
     virtual const char *getName() const = 0;
 
@@ -43,7 +44,6 @@ public:
     void setActivePlugin(const char *pluginName);
     void setActivePluginById(int pluginId);
     void runActivePlugin();
-    void setupActivePlugin();
     void activateNextPlugin();
     void persistActivePlugin();
     void init();

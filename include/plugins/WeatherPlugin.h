@@ -15,6 +15,12 @@ class WeatherPlugin : public Plugin
 {
 private:
   unsigned long lastUpdate = 0;
+  int temperature;
+  int weatherCode;
+  int weatherIcon;
+  int iconY;
+  int tempY;
+
   HTTPClient http;
 
   std::vector<int> thunderCodes = {200, 386, 389, 392, 395};
@@ -32,9 +38,12 @@ private:
       332, 335, 338, 368, 371,
       392, 395, 230, 350};
 
+  void draw();
+  
 public:
   void update();
   void setup() override;
+  void activate() override;
   void loop() override;
   const char *getName() const override;
 };

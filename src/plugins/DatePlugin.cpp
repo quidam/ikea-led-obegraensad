@@ -9,7 +9,10 @@ void DatePlugin::setup()
   Screen.setPixel(8, 7, 1);
   Screen.setPixel(10, 7, 1);
   Screen.setPixel(11, 7, 1);
+}
 
+void DatePlugin::activate()
+{
   previousDay = -1;
   previousMonth = -1;
 }
