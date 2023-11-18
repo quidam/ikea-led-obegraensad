@@ -36,6 +36,11 @@ void DatePlugin::loop()
   }
 }
 
+const unsigned long DatePlugin::getDuration() const
+{
+    return 10000uL;
+}
+
 const char *DatePlugin::getName() const
 {
   return "Date";

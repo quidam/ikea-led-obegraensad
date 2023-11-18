@@ -10,22 +10,10 @@
 
 #include "PluginManager.h"
 
-#include "plugins/DrawPlugin.h"
-#include "plugins/BreakoutPlugin.h"
-#include "plugins/SnakePlugin.h"
-#include "plugins/GameOfLifePlugin.h"
-#include "plugins/StarsPlugin.h"
-#include "plugins/LinesPlugin.h"
-#include "plugins/CirclePlugin.h"
-#include "plugins/RainPlugin.h"
-#include "plugins/FireworkPlugin.h"
-
 #ifdef ENABLE_SERVER
 #include "plugins/BigClockPlugin.h"
 #include "plugins/DatePlugin.h"
-#include "plugins/ClockPlugin.h"
 #include "plugins/WeatherPlugin.h"
-#include "plugins/AnimationPlugin.h"
 #endif
 
 #include "websocket.h"
@@ -33,9 +21,6 @@
 #include "ota.h"
 #include "webserver.h"
 #include "screen.h"
-
-unsigned long previousMillis = 0;
-unsigned long interval = 30000;
 
 PluginManager pluginManager;
 SYSTEM_STATUS currentStatus = NONE;
@@ -101,22 +86,10 @@ void setup()
 
   Screen.setup();
 
-  // pluginManager.addPlugin(new DrawPlugin());
-  // pluginManager.addPlugin(new BreakoutPlugin());
-  // pluginManager.addPlugin(new SnakePlugin());
-  // pluginManager.addPlugin(new GameOfLifePlugin());
-  // pluginManager.addPlugin(new StarsPlugin());
-  // pluginManager.addPlugin(new LinesPlugin());
-  // pluginManager.addPlugin(new CirclePlugin());
-  // pluginManager.addPlugin(new RainPlugin());
-  // pluginManager.addPlugin(new FireworkPlugin());
-
 #ifdef ENABLE_SERVER
   pluginManager.addPlugin(new BigClockPlugin());
   pluginManager.addPlugin(new DatePlugin());
-  // pluginManager.addPlugin(new ClockPlugin());
   pluginManager.addPlugin(new WeatherPlugin());
-  // pluginManager.addPlugin(new AnimationPlugin());
 #endif
 
   pluginManager.init();

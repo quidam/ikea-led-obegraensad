@@ -24,6 +24,7 @@ public:
     virtual void setup() = 0;
     virtual void activate() = 0;
     virtual void loop();
+    virtual const unsigned long getDuration() const = 0;
     virtual const char *getName() const = 0;
 
     void setId(int id);
@@ -36,6 +37,8 @@ private:
     std::vector<Plugin *> plugins;
     Plugin *activePlugin;
     int nextPluginId;
+    unsigned long previousPluginSwitch = 0;
+    unsigned long pluginSwitchInterval = 10000;
 
 public:
     PluginManager();

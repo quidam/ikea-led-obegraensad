@@ -99,6 +99,10 @@ void PluginManager::setActivePluginById(int pluginId)
         if (plugin->getId() == pluginId)
         {
             setActivePlugin(plugin->getName());
+            pluginSwitchInterval = activePlugin->getDuration();
+            Serial.print("Interval: ");
+            Serial.println(pluginSwitchInterval);
+            previousPluginSwitch = millis();
         }
     }
 }
@@ -120,6 +124,13 @@ void PluginManager::runActivePlugin()
     }
     if (activePlugin)
     {
+        if (millis() - previousPluginSwitch > pluginSwitchInterval)
+        {
+            Serial.println("Switching plugin");
+            activateNextPlugin();
+        }
+
+
         if (currentStatus != UPDATE && currentStatus != LOADING && currentStatus != WSBINARY)
         {
             activePlugin->loop();

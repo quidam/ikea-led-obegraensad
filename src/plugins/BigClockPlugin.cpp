@@ -58,6 +58,11 @@ void BigClockPlugin::loop()
   }
 }
 
+const unsigned long BigClockPlugin::getDuration() const
+{
+    return 30000uL;
+}
+
 const char *BigClockPlugin::getName() const
 {
   return "Big Clock";

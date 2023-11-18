@@ -39,11 +39,12 @@ private:
       392, 395, 230, 350};
 
   void draw();
-  
+
 public:
   void update();
   void setup() override;
   void activate() override;
   void loop() override;
+  const unsigned long getDuration() const override;
   const char *getName() const override;
 };
