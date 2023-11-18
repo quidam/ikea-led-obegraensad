@@ -23,7 +23,7 @@
 // https://randomnerdtutorials.com/esp32-save-data-permanently-preferences/
 // timer1 on esp8266 is not compatible with flash file system reads
 #ifndef ESP8266
-#define ENABLE_STORAGE
+// #define ENABLE_STORAGE
 #endif
 
 #ifdef ENABLE_SERVER
@@ -36,7 +36,7 @@
 #define ROWS 16
 
 // set your city or coords (https://github.com/chubin/wttr.in)
-#define WEATHER_LOCATION "Hamburg"
+#define WEATHER_LOCATION "langenfeld"
 
 
 // ---------------
