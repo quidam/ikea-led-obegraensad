@@ -2,14 +2,13 @@
 
 #include "PluginManager.h"
 
-class BigClockPlugin : public Plugin
+class DatePlugin : public Plugin
 {
 private:
     struct tm timeinfo;
 
-    int previousSeconds;
-    int previousMinutes;
-    int previousHour;
+    int previousDay;
+    int previousMonth;
 
 public:
     void setup() override;

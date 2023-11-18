@@ -22,6 +22,7 @@
 
 #ifdef ENABLE_SERVER
 #include "plugins/BigClockPlugin.h"
+#include "plugins/DatePlugin.h"
 #include "plugins/ClockPlugin.h"
 #include "plugins/WeatherPlugin.h"
 #include "plugins/AnimationPlugin.h"
@@ -44,6 +45,7 @@ const unsigned long connectionInterval = 10000;
 
 void connectToWiFi()
 {
+  Serial.begin(115200);
   Serial.println("Connecting to Wi-Fi...");
 
   // Delete old config
@@ -99,21 +101,22 @@ void setup()
 
   Screen.setup();
 
-  pluginManager.addPlugin(new DrawPlugin());
-  pluginManager.addPlugin(new BreakoutPlugin());
-  pluginManager.addPlugin(new SnakePlugin());
-  pluginManager.addPlugin(new GameOfLifePlugin());
-  pluginManager.addPlugin(new StarsPlugin());
-  pluginManager.addPlugin(new LinesPlugin());
-  pluginManager.addPlugin(new CirclePlugin());
-  pluginManager.addPlugin(new RainPlugin());
-  pluginManager.addPlugin(new FireworkPlugin());
+  // pluginManager.addPlugin(new DrawPlugin());
+  // pluginManager.addPlugin(new BreakoutPlugin());
+  // pluginManager.addPlugin(new SnakePlugin());
+  // pluginManager.addPlugin(new GameOfLifePlugin());
+  // pluginManager.addPlugin(new StarsPlugin());
+  // pluginManager.addPlugin(new LinesPlugin());
+  // pluginManager.addPlugin(new CirclePlugin());
+  // pluginManager.addPlugin(new RainPlugin());
+  // pluginManager.addPlugin(new FireworkPlugin());
 
 #ifdef ENABLE_SERVER
   pluginManager.addPlugin(new BigClockPlugin());
-  pluginManager.addPlugin(new ClockPlugin());
+  pluginManager.addPlugin(new DatePlugin());
+  // pluginManager.addPlugin(new ClockPlugin());
   pluginManager.addPlugin(new WeatherPlugin());
-  pluginManager.addPlugin(new AnimationPlugin());
+  // pluginManager.addPlugin(new AnimationPlugin());
 #endif
 
   pluginManager.init();
