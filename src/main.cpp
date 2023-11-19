@@ -13,8 +13,7 @@
 #ifdef ENABLE_SERVER
 #include "plugins/BigClockPlugin.h"
 #include "plugins/DateTempPlugin.h"
-// #include "plugins/WeatherPlugin.h"
-// #include "plugins/OpenhabPlugin.h"
+#include "plugins/SunPlugin.h"
 #endif
 
 #include "websocket.h"
@@ -90,8 +89,7 @@ void setup()
 #ifdef ENABLE_SERVER
   pluginManager.addPlugin(new BigClockPlugin());
   pluginManager.addPlugin(new DateTempPlugin());
-  // pluginManager.addPlugin(new WeatherPlugin());
-  // pluginManager.addPlugin(new OpenhabPlugin());
+  pluginManager.addPlugin(new SunPlugin());
 #endif
 
   pluginManager.init();

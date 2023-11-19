@@ -26,7 +26,7 @@ private:
 
 // Temperature
   unsigned long lastUpdate = 0;
-  std::string value;
+  std::string temperature;
 
   HTTPClient http;
 

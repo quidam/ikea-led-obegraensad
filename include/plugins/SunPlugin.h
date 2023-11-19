@@ -12,13 +12,17 @@
 #include <iostream>
 #include <cstring>
 #include <string>
+#include <time.h>
 #include "PluginManager.h"
 
-class OpenhabPlugin : public Plugin
+class SunPlugin : public Plugin
 {
 private:
+
+// Sunrise / Sunset
   unsigned long lastUpdate = 0;
-  std::string value;
+  std::string sunrise;
+  std::string sunset;
 
   HTTPClient http;
 

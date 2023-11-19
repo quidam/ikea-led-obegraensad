@@ -32,7 +32,9 @@
 #define TZ_INFO "CET-1CEST,M3.5.0,M10.5.0/3"
 #define OPENHAB_SERVER "openhab"
 #define OPENHAB_PORT 8080
-#define OPENHAB_ITEM "Heizung_Aussentemperatur"
+#define OPENHAB_ITEM_TEMPERATURE "Heizung_Aussentemperatur"
+#define OPENHAB_ITEM_SUNRISE "LokaleSonnendaten_Startzeit"
+#define OPENHAB_ITEM_SUNSET "Sonnenuntergang_Startzeit"
 #endif
 
 #define COLS 16

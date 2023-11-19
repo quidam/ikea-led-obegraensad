@@ -1,6 +1,5 @@
 #include "plugins/DateTempPlugin.h"
 
-// https://github.com/chubin/wttr.in/blob/master/share/translations/en.txt
 #ifdef ESP8266
 WiFiClient wiFiClient;
 #endif
@@ -35,7 +34,6 @@ void DateTempPlugin::loop()
         {
             dayOfMonth = timeinfo.tm_mday;
             month = timeinfo.tm_mon + 1;
-
             draw();
         }
 
@@ -46,13 +44,14 @@ void DateTempPlugin::loop()
     {
         this->update();
         this->lastUpdate = millis();
-        Serial.println("updating openhab");
+        Serial.println("updating temperature");
+        draw();
     };
 }
 
 void DateTempPlugin::update()
 {
-    String apiString = "http://" + String(OPENHAB_SERVER) +":" + String(OPENHAB_PORT) + "/rest/items/" + String(OPENHAB_ITEM);
+    String apiString = "http://" + String(OPENHAB_SERVER) +":" + String(OPENHAB_PORT) + "/rest/items/" + String(OPENHAB_ITEM_TEMPERATURE);
 #ifdef ESP32
     http.begin(apiString);
 #endif
@@ -66,7 +65,7 @@ void DateTempPlugin::update()
     {
         DynamicJsonDocument doc(2048);
         deserializeJson(doc, http.getString());
-        value = doc["state"].as<std::string>();
+        temperature = doc["state"].as<std::string>();
     }
 
     http.end();
@@ -85,8 +84,8 @@ void DateTempPlugin::draw()
 
     // Temperature
 
-    int dot = value.find(".");
-    std::string degrees = value.substr(0, dot);
+    int dot = temperature.find(".");
+    std::string degrees = temperature.substr(0, dot);
 
     int tempY = 10;
 
@@ -96,20 +95,20 @@ void DateTempPlugin::draw()
         if(iDegrees >= 10) {
             Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
             Screen.drawCharacter(11, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(3, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+            Screen.drawNumbers(4, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
         } else {
             Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
             Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(3, tempY, {iDegrees});
+            Screen.drawNumbers(4, tempY, {iDegrees});
         }
     } else {
         int iDegrees = stoi(degrees);
         if(iDegrees >= 10) {
             Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(1, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+            Screen.drawNumbers(2, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
         } else {
             Screen.drawCharacter(7, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(4, tempY, {iDegrees});
+            Screen.drawNumbers(5, tempY, {iDegrees});
         }
     }
 }
