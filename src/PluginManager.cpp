@@ -100,8 +100,6 @@ void PluginManager::setActivePluginById(int pluginId)
         {
             setActivePlugin(plugin->getName());
             pluginSwitchInterval = activePlugin->getDuration();
-            Serial.print("Interval: ");
-            Serial.println(pluginSwitchInterval);
             previousPluginSwitch = millis();
         }
     }
@@ -126,7 +124,6 @@ void PluginManager::runActivePlugin()
     {
         if (millis() - previousPluginSwitch > pluginSwitchInterval)
         {
-            Serial.println("Switching plugin");
             activateNextPlugin();
         }
 

@@ -92,8 +92,6 @@ void WeatherPlugin::update()
             weatherIcon = 3;
             iconY = 2;
         }
-
-        draw();
     }
 }
 

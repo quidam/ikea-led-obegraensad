@@ -30,6 +30,9 @@
 // https://github.com/nayarsystems/posix_tz_db/blob/master/zones.json
 #define NTP_SERVER "de.pool.ntp.org"
 #define TZ_INFO "CET-1CEST,M3.5.0,M10.5.0/3"
+#define OPENHAB_SERVER "openhab"
+#define OPENHAB_PORT 8080
+#define OPENHAB_ITEM "Heizung_Aussentemperatur"
 #endif
 
 #define COLS 16
