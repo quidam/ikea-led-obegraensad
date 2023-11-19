@@ -21,11 +21,14 @@ private:
 
 // Sunrise / Sunset
   unsigned long lastUpdate = 0;
+  String apiStringSunrise;
+  String apiStringSunset;
   std::string sunrise;
   std::string sunset;
 
   HTTPClient http;
 
+  std::string httpGet(String url);
   void draw();
 
 public:
