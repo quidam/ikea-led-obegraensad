@@ -21,8 +21,8 @@ private:
 
 // Sunrise / Sunset
   unsigned long lastUpdate = 0;
-  String apiStringSunrise;
-  String apiStringSunset;
+  const String apiStringSunrise = "http://" + String(OPENHAB_SERVER) +":" + String(OPENHAB_PORT) + "/rest/items/" + String(OPENHAB_ITEM_SUNRISE);
+  const String apiStringSunset = "http://" + String(OPENHAB_SERVER) +":" + String(OPENHAB_PORT) + "/rest/items/" + String(OPENHAB_ITEM_SUNSET);
   std::string sunrise;
   std::string sunset;
 

@@ -16,7 +16,6 @@ void DateTempPlugin::setup()
     Screen.setPixel(10, 7, 1);
     Screen.setPixel(11, 7, 1);
     this->lastUpdate = millis();
-    this->apiString = "http://" + String(OPENHAB_SERVER) +":" + String(OPENHAB_PORT) + "/rest/items/" + String(OPENHAB_ITEM_TEMPERATURE);
     this->update();
     currentStatus = NONE;
 }
