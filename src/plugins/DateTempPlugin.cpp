@@ -80,7 +80,8 @@ void DateTempPlugin::draw()
 
     Screen.drawNumbers(0, 2, {(dayOfMonth - dayOfMonth % 10) / 10, dayOfMonth % 10});
     Screen.drawNumbers(8, 2, {(month - month % 10) / 10, month % 10});
-    Screen.setPixel(8, 6, 1, 50);
+    Screen.setPixel(7, 6, 1, 50);
+    Screen.setPixel(15, 6, 1, 50);
 
     // Temperature
 
