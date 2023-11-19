@@ -267,7 +267,7 @@ void Screen_::drawNumbers(int x, int y, std::vector<int> numbers, uint8_t bright
 {
   for (int i = 0; i < numbers.size(); i++)
   {
-    this->drawCharacter(x + (i * 5), y, this->readBytes(smallNumbers[numbers.at(i)]), 4, brightness);
+    this->drawCharacter(x + (i * 4), y, this->readBytes(smallNumbers[numbers.at(i)]), 4, brightness);
   }
 }
 
