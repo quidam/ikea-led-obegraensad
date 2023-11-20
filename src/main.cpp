@@ -14,6 +14,7 @@
 #include "plugins/BigClockPlugin.h"
 #include "plugins/DateTempPlugin.h"
 #include "plugins/SunPlugin.h"
+#include "plugins/WeatherPlugin.h"
 #endif
 
 #include "websocket.h"
@@ -90,6 +91,7 @@ void setup()
   pluginManager.addPlugin(new BigClockPlugin());
   pluginManager.addPlugin(new DateTempPlugin());
   pluginManager.addPlugin(new SunPlugin());
+  pluginManager.addPlugin(new WeatherPlugin());
 #endif
 
   pluginManager.init();
