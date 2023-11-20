@@ -78,8 +78,6 @@ void DateTempPlugin::draw()
 
     Screen.drawNumbers(0, 2, {(dayOfMonth - dayOfMonth % 10) / 10, dayOfMonth % 10});
     Screen.drawNumbers(8, 2, {(month - month % 10) / 10, month % 10});
-    Screen.setPixel(7, 6, 1, 50);
-    Screen.setPixel(15, 6, 1, 50);
 
     // Temperature
 
@@ -92,22 +90,22 @@ void DateTempPlugin::draw()
         degrees = degrees.substr(1);
         int iDegrees = stoi(degrees);
         if(iDegrees >= 10) {
-            Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
-            Screen.drawCharacter(11, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(4, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+            Screen.drawCharacter(1, tempY, Screen.readBytes(minusSymbol), 4);
+            Screen.drawCharacter(12, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+            Screen.drawNumbers(5, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
         } else {
-            Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
-            Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(4, tempY, {iDegrees});
+            Screen.drawCharacter(1, tempY, Screen.readBytes(minusSymbol), 4);
+            Screen.drawCharacter(10, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+            Screen.drawNumbers(5, tempY, {iDegrees});
         }
     } else {
         int iDegrees = stoi(degrees);
         if(iDegrees >= 10) {
-            Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(2, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+            Screen.drawCharacter(10, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+            Screen.drawNumbers(3, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
         } else {
-            Screen.drawCharacter(7, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(5, tempY, {iDegrees});
+            Screen.drawCharacter(8, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+            Screen.drawNumbers(6, tempY, {iDegrees});
         }
     }
 }

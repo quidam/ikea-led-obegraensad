@@ -7,7 +7,6 @@ class BigClockPlugin : public Plugin
 private:
     struct tm timeinfo;
 
-    int previousSeconds;
     int previousMinutes;
     int previousHour;
 
