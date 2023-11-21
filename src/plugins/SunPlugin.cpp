@@ -15,8 +15,10 @@ void SunPlugin::setup()
     Screen.setPixel(8, 7, 1);
     Screen.setPixel(10, 7, 1);
     Screen.setPixel(11, 7, 1);
-    this->lastUpdateDay = 0;
     this->update();
+    if (getLocalTime(&timeinfo)) {
+        this->lastUpdateDay = timeinfo.tm_mday;
+    }
     currentStatus = NONE;
 }
 
@@ -78,8 +80,8 @@ void SunPlugin::draw()
 
     Screen.drawNumbers(0, 2, {(sunriseHour - sunriseHour % 10) / 10, sunriseHour % 10});
     Screen.drawNumbers(8, 2, {(sunriseMinute - sunriseMinute % 10) / 10, sunriseMinute % 10});
-    Screen.drawLine(7, 0, 8, 0, 1, 50);
-    Screen.drawLine(6, 1, 9, 1, 1, 50);
+    Screen.drawLine(8, 0, 9, 0, 1, 50);
+    Screen.drawLine(7, 1, 10, 1, 1, 50);
 
     // Sunset
     std::string sSunsetHour = sunset.substr(11, 2);
@@ -90,8 +92,8 @@ void SunPlugin::draw()
 
     Screen.drawNumbers(0, 10, {(sunsetHour - sunsetHour % 10) / 10, sunsetHour % 10});
     Screen.drawNumbers(8, 10, {(sunsetMinute - sunsetMinute % 10) / 10, sunsetMinute % 10});
-    Screen.drawLine(6, 8, 9, 8, 1, 50);
-    Screen.drawLine(7, 9, 8, 9, 1, 50);
+    Screen.drawLine(7, 8, 10, 8, 1, 50);
+    Screen.drawLine(8, 9, 9, 9, 1, 50);
 }
 
 const unsigned long SunPlugin::getDuration() const

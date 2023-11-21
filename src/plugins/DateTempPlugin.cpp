@@ -15,8 +15,9 @@ void DateTempPlugin::setup()
     Screen.setPixel(8, 7, 1);
     Screen.setPixel(10, 7, 1);
     Screen.setPixel(11, 7, 1);
-    this->lastUpdate = millis();
+    this->temperature = "undefined";
     this->update();
+    this->lastUpdate = millis();
     currentStatus = NONE;
 }
 
@@ -36,15 +37,14 @@ void DateTempPlugin::loop()
             month = timeinfo.tm_mon + 1;
             draw();
         }
-
-        
     }
 
-    if (millis() >= this->lastUpdate + (1000 * 60 * 30))
+    int checkInterval = this->temperature == "undefined" ? 1000 * 30 : 1000 * 60 * 30;
+    if (millis() >= this->lastUpdate + checkInterval)
     {
+        Serial.println("updating temperature");
         this->update();
         this->lastUpdate = millis();
-        Serial.println("updating temperature");
         draw();
     };
 }
@@ -64,7 +64,7 @@ void DateTempPlugin::update()
     {
         DynamicJsonDocument doc(2048);
         deserializeJson(doc, http.getString());
-        temperature = doc["state"].as<std::string>();
+        this->temperature = doc["state"].as<std::string>();
     }
 
     http.end();
@@ -90,22 +90,22 @@ void DateTempPlugin::draw()
         degrees = degrees.substr(1);
         int iDegrees = stoi(degrees);
         if(iDegrees >= 10) {
-            Screen.drawCharacter(1, tempY, Screen.readBytes(minusSymbol), 4);
-            Screen.drawCharacter(12, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(5, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+            Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
+            Screen.drawCharacter(11, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+            Screen.drawNumbers(3, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
         } else {
-            Screen.drawCharacter(1, tempY, Screen.readBytes(minusSymbol), 4);
-            Screen.drawCharacter(10, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(5, tempY, {iDegrees});
+            Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
+            Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+            Screen.drawNumbers(3, tempY, {iDegrees});
         }
     } else {
         int iDegrees = stoi(degrees);
         if(iDegrees >= 10) {
-            Screen.drawCharacter(10, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(3, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+            Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+            Screen.drawNumbers(1, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
         } else {
-            Screen.drawCharacter(8, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(6, tempY, {iDegrees});
+            Screen.drawCharacter(7, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+            Screen.drawNumbers(4, tempY, {iDegrees});
         }
     }
 }

@@ -16,8 +16,9 @@ void WeatherPlugin::setup()
     Screen.setPixel(8, 7, 1);
     Screen.setPixel(10, 7, 1);
     Screen.setPixel(11, 7, 1);
-    this->lastUpdate = millis();
+    this->temperature = -99;
     this->update();
+    this->lastUpdate = millis();
     currentStatus = NONE;
 }
 
@@ -27,11 +28,12 @@ void WeatherPlugin::activate() {
 
 void WeatherPlugin::loop()
 {
-    if (millis() >= this->lastUpdate + (1000 * 60 * 30))
+    int checkInterval = this->temperature == -99 ? 1000 * 30 : 1000 * 60 * 30;
+    if (millis() >= this->lastUpdate + checkInterval)
     {
+        Serial.println("updating weather");
         this->update();
         this->lastUpdate = millis();
-        Serial.println("updating weather");
     };
 }
 
