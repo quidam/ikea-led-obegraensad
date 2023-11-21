@@ -15,7 +15,7 @@ void SunPlugin::setup()
     Screen.setPixel(8, 7, 1);
     Screen.setPixel(10, 7, 1);
     Screen.setPixel(11, 7, 1);
-    this->lastUpdate = millis();
+    this->lastUpdateDay = 0;
     this->update();
     currentStatus = NONE;
 }
@@ -26,13 +26,14 @@ void SunPlugin::activate() {
 
 void SunPlugin::loop()
 {
-    if (millis() >= this->lastUpdate + (1000 * 60 * 30))
-    {
-        this->update();
-        this->lastUpdate = millis();
-        Serial.println("updating sunrise and sunset");
-        draw();
-    };
+    if (getLocalTime(&timeinfo)) {
+        if (lastUpdateDay != timeinfo.tm_mday) {
+            Serial.println("updating sunrise and sunset");
+            this->update();
+            draw();
+            lastUpdateDay = timeinfo.tm_mday;
+        }
+    }
 }
 
 void SunPlugin::update()
