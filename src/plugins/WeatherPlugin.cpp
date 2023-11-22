@@ -107,24 +107,24 @@ void WeatherPlugin::draw()
         if (temperature >= 10)
         {
             Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(1, tempY, {(temperature - temperature % 10) / 10, temperature % 10});
+            Screen.drawNumbers(2, tempY, {(temperature - temperature % 10) / 10, temperature % 10});
         }
         else if (temperature <= -10)
         {
             Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
             Screen.drawCharacter(11, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(3, tempY, {(temperature - temperature % 10) / 10, temperature % 10});
+            Screen.drawNumbers(4, tempY, {(temperature - temperature % 10) / 10, temperature % 10});
         }
         else if (temperature >= 0)
         {
             Screen.drawCharacter(7, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(4, tempY, {temperature});
+            Screen.drawNumbers(5, tempY, {temperature});
         }
         else
         {
             Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
             Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(3, tempY, {temperature});
+            Screen.drawNumbers(4, tempY, {temperature});
         }
 }
 

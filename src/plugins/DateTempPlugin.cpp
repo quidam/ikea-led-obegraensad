@@ -78,34 +78,38 @@ void DateTempPlugin::draw()
 
     Screen.drawNumbers(0, 2, {(dayOfMonth - dayOfMonth % 10) / 10, dayOfMonth % 10});
     Screen.drawNumbers(8, 2, {(month - month % 10) / 10, month % 10});
+    Screen.setPixel(7, 6, 1, 50);
+    Screen.setPixel(15, 6, 1, 50);
 
     // Temperature
 
-    int dot = temperature.find(".");
-    std::string degrees = temperature.substr(0, dot);
+    if (temperature != "undefined") {
+        int dot = temperature.find(".");
+        std::string degrees = temperature.substr(0, dot);
 
-    int tempY = 10;
+        int tempY = 10;
 
-    if (degrees.substr(0, 1).compare("-") == 0) {
-        degrees = degrees.substr(1);
-        int iDegrees = stoi(degrees);
-        if(iDegrees >= 10) {
-            Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
-            Screen.drawCharacter(11, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(3, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+        if (degrees.substr(0, 1).compare("-") == 0) {
+            degrees = degrees.substr(1);
+            int iDegrees = stoi(degrees);
+            if(iDegrees >= 10) {
+                Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
+                Screen.drawCharacter(11, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+                Screen.drawNumbers(4, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+            } else {
+                Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
+                Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+                Screen.drawNumbers(4, tempY, {iDegrees});
+            }
         } else {
-            Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
-            Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(3, tempY, {iDegrees});
-        }
-    } else {
-        int iDegrees = stoi(degrees);
-        if(iDegrees >= 10) {
-            Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(1, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
-        } else {
-            Screen.drawCharacter(7, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(4, tempY, {iDegrees});
+            int iDegrees = stoi(degrees);
+            if(iDegrees >= 10) {
+                Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+                Screen.drawNumbers(2, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+            } else {
+                Screen.drawCharacter(7, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+                Screen.drawNumbers(5, tempY, {iDegrees});
+            }
         }
     }
 }

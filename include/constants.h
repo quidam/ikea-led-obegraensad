@@ -26,6 +26,9 @@
 // #define ENABLE_STORAGE
 #endif
 
+#define uS_TO_S_FACTOR 1000000ULL
+#define SLEEP_DURATION 7ULL * 60 * 60
+
 #ifdef ENABLE_SERVER
 // https://github.com/nayarsystems/posix_tz_db/blob/master/zones.json
 #define NTP_SERVER "de.pool.ntp.org"
