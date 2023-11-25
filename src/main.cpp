@@ -88,10 +88,21 @@ void setup()
   Screen.setup();
 
 #ifdef ENABLE_SERVER
-  pluginManager.addPlugin(new BigClockPlugin());
-  pluginManager.addPlugin(new DateTempPlugin());
-  pluginManager.addPlugin(new SunPlugin());
-  pluginManager.addPlugin(new WeatherPlugin());
+  Plugin *bigClockPlugin = new BigClockPlugin();
+  Plugin *dateTempPlugin = new DateTempPlugin();
+  Plugin *sunPlugin = new SunPlugin();
+  Plugin *weatherPlugin = new WeatherPlugin();
+  int bigClockPluginId = pluginManager.addPlugin(bigClockPlugin);
+  int dateTempPluginId = pluginManager.addPlugin(dateTempPlugin);
+  int sunPluginId = pluginManager.addPlugin(sunPlugin);
+  int weatherPluginId = pluginManager.addPlugin(weatherPlugin);
+
+  pluginManager.addScheduleItem(bigClockPluginId, 30);
+  pluginManager.addScheduleItem(dateTempPluginId, 10);
+  pluginManager.addScheduleItem(bigClockPluginId, 5);
+  pluginManager.addScheduleItem(sunPluginId, 10);
+  pluginManager.addScheduleItem(bigClockPluginId, 5);
+  pluginManager.addScheduleItem(weatherPluginId, 10);
 #endif
 
   pluginManager.init();

@@ -114,11 +114,6 @@ void DateTempPlugin::draw()
     }
 }
 
-const unsigned long DateTempPlugin::getDuration() const
-{
-    return 10000uL;
-}
-
 const char *DateTempPlugin::getName() const
 {
     return "DateTemp";

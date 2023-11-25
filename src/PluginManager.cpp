@@ -40,9 +40,13 @@ void PluginManager::init()
     storage.end();
 #endif
 
+    scheduleIndex = 0;
     if (!activePlugin)
     {
-        pluginManager.setActivePluginById(1);
+        std::tuple<int, int> firstPlugin = schedule[scheduleIndex];
+        int pluginId = std::get<0>(firstPlugin);
+        activePluginDuration = 1000UL * std::get<1>(firstPlugin);
+        pluginManager.setActivePluginById(pluginId);
     }
 }
 
@@ -62,10 +66,13 @@ void PluginManager::persistActivePlugin()
 
 int PluginManager::addPlugin(Plugin *plugin)
 {
-
     plugin->setId(nextPluginId++);
     plugins.push_back(plugin);
     return plugin->getId();
+}
+
+void PluginManager::addScheduleItem(int pluginId, int duration) {
+    schedule.push_back(std::make_tuple(pluginId, duration));
 }
 
 void PluginManager::setActivePlugin(const char *pluginName)
@@ -85,7 +92,6 @@ void PluginManager::setActivePlugin(const char *pluginName)
 
             Screen.clear();
             activePlugin = plugin;
-            // activePlugin->setup();
             activePlugin->activate();
             break;
         }
@@ -99,7 +105,6 @@ void PluginManager::setActivePluginById(int pluginId)
         if (plugin->getId() == pluginId)
         {
             setActivePlugin(plugin->getName());
-            pluginSwitchInterval = activePlugin->getDuration();
             previousPluginSwitch = millis();
         }
     }
@@ -122,7 +127,7 @@ void PluginManager::runActivePlugin()
     }
     if (activePlugin)
     {
-        if (millis() - previousPluginSwitch > pluginSwitchInterval)
+        if (millis() - previousPluginSwitch > activePluginDuration)
         {
             activateNextPlugin();
         }
@@ -152,24 +157,17 @@ size_t PluginManager::getNumPlugins()
 
 void PluginManager::activateNextPlugin()
 {
+    scheduleIndex = scheduleIndex == schedule.size() - 1 ? 0 : scheduleIndex + 1;
+    Serial.print("Next schedule index: ");
+    Serial.println(scheduleIndex);
+    std::tuple<int, int> nextPlugin = schedule[scheduleIndex];
+    int pluginId = std::get<0>(nextPlugin);
+    activePluginDuration = 1000UL * std::get<1>(nextPlugin);
     Serial.print("next plugin: ");
-    Serial.println(activePlugin->getId() + 1);
+    Serial.println(pluginId);
 
-    if (activePlugin)
-    {
-        if (activePlugin->getId() <= getNumPlugins() - 1)
-        {
-            setActivePluginById(activePlugin->getId() + 1);
-        }
-        else
-        {
-            setActivePluginById(1);
-        }
-    }
-    else
-    {
-        setActivePluginById(1);
-    }
+    setActivePluginById(pluginId);
+
 #ifdef ENABLE_SERVER
     sendMinimalInfo();
 #endif

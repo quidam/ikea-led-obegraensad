@@ -100,11 +100,6 @@ void SunPlugin::draw()
     Screen.drawLine(7, 9, 8, 9, 1, 50);
 }
 
-const unsigned long SunPlugin::getDuration() const
-{
-    return 10000uL;
-}
-
 const char *SunPlugin::getName() const
 {
     return "Sun";

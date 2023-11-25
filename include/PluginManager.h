@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <vector>
 #include <string>
+#include <list>
 
 #include "screen.h"
 #include "signs.h"
@@ -24,7 +25,6 @@ public:
     virtual void setup() = 0;
     virtual void activate() = 0;
     virtual void loop();
-    virtual const unsigned long getDuration() const = 0;
     virtual const char *getName() const = 0;
 
     void setId(int id);
@@ -38,12 +38,15 @@ private:
     Plugin *activePlugin;
     int nextPluginId;
     unsigned long previousPluginSwitch = 0;
-    unsigned long pluginSwitchInterval = 10000;
+    std::vector< std::tuple< int, int > > schedule;
+    int scheduleIndex;
+    unsigned long activePluginDuration;
 
 public:
     PluginManager();
 
     int addPlugin(Plugin *plugin);
+    void addScheduleItem(int duration, int pluginId);
     void setActivePlugin(const char *pluginName);
     void setActivePluginById(int pluginId);
     void runActivePlugin();

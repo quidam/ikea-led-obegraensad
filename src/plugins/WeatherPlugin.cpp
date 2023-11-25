@@ -128,11 +128,6 @@ void WeatherPlugin::draw()
         }
 }
 
-const unsigned long WeatherPlugin::getDuration() const
-{
-    return 10000uL;
-}
-
 const char *WeatherPlugin::getName() const
 {
     return "Weather";
