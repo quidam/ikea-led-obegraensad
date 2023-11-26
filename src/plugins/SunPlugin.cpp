@@ -49,7 +49,7 @@ std::string SunPlugin::httpGet(String url) {
     http.begin(url);
 #endif
 #ifdef ESP8266
-    http.begin(wiFiClient, weatherApiString);
+    http.begin(wiFiClient, url);
 #endif
 
     int code = http.GET();
@@ -82,8 +82,8 @@ void SunPlugin::draw()
     Screen.drawNumbers(8, 2, {(sunriseMinute - sunriseMinute % 10) / 10, sunriseMinute % 10});
     Screen.setPixel(7, 3, 1, 50);
     Screen.setPixel(7, 5, 1, 50);
-    Screen.drawLine(7, 0, 8, 0, 1, 50);
-    Screen.drawLine(6, 1, 9, 1, 1, 50);
+    Screen.drawLine(7, 0, 8, 0, 1, 30);
+    Screen.drawLine(6, 1, 9, 1, 1, 30);
 
     // Sunset
     std::string sSunsetHour = sunset.substr(11, 2);
@@ -96,8 +96,8 @@ void SunPlugin::draw()
     Screen.drawNumbers(8, 10, {(sunsetMinute - sunsetMinute % 10) / 10, sunsetMinute % 10});
     Screen.setPixel(7, 11, 1, 50);
     Screen.setPixel(7, 13, 1, 50);
-    Screen.drawLine(6, 8, 9, 8, 1, 50);
-    Screen.drawLine(7, 9, 8, 9, 1, 50);
+    Screen.drawLine(6, 8, 9, 8, 1, 30);
+    Screen.drawLine(7, 9, 8, 9, 1, 30);
 }
 
 const char *SunPlugin::getName() const

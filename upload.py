@@ -30,6 +30,7 @@ except ImportError:
 def on_upload(source, target, env):
     firmware_path = str(source[0])
     upload_url = env.GetProjectOption('upload_url')
+    print("Uploading to " + upload_url)
 
     with open(firmware_path, 'rb') as firmware:
         md5 = hashlib.md5(firmware.read()).hexdigest()

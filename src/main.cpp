@@ -97,12 +97,12 @@ void setup()
   int sunPluginId = pluginManager.addPlugin(sunPlugin);
   int weatherPluginId = pluginManager.addPlugin(weatherPlugin);
 
-  pluginManager.addScheduleItem(bigClockPluginId, 30);
+  pluginManager.addScheduleItem(bigClockPluginId, 5);
   pluginManager.addScheduleItem(dateTempPluginId, 10);
   pluginManager.addScheduleItem(bigClockPluginId, 5);
-  pluginManager.addScheduleItem(sunPluginId, 10);
-  pluginManager.addScheduleItem(bigClockPluginId, 5);
   pluginManager.addScheduleItem(weatherPluginId, 10);
+  pluginManager.addScheduleItem(bigClockPluginId, 5);
+  pluginManager.addScheduleItem(sunPluginId, 10);
 #endif
 
   pluginManager.init();
