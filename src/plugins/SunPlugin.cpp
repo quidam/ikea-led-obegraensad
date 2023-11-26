@@ -98,6 +98,8 @@ void SunPlugin::draw()
     Screen.setPixel(7, 13, 1, 50);
     Screen.drawLine(6, 8, 9, 8, 1, 30);
     Screen.drawLine(7, 9, 8, 9, 1, 30);
+
+    Screen.switchScreen();
 }
 
 const char *SunPlugin::getName() const

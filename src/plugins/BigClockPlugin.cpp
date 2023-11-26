@@ -29,6 +29,7 @@ void BigClockPlugin::loop()
       Screen.clear();
       Screen.drawBigNumbers(0, 0, hh);
       Screen.drawBigNumbers(0, ROWS / 2, mm);
+      Screen.switchScreen();
     }
 
     previousMinutes = timeinfo.tm_min;

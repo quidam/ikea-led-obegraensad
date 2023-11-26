@@ -101,31 +101,32 @@ void WeatherPlugin::update()
 
 void WeatherPlugin::draw()
 {
-        Screen.clear();
-        Screen.drawWeather(0, iconY, weatherIcon, 100);
+    Screen.clear();
+    Screen.drawWeather(0, iconY, weatherIcon, 100);
 
-        if (temperature >= 10)
-        {
-            Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(2, tempY, {(temperature - temperature % 10) / 10, temperature % 10});
-        }
-        else if (temperature <= -10)
-        {
-            Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
-            Screen.drawCharacter(11, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(4, tempY, {(temperature - temperature % 10) / 10, temperature % 10});
-        }
-        else if (temperature >= 0)
-        {
-            Screen.drawCharacter(7, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(5, tempY, {temperature});
-        }
-        else
-        {
-            Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
-            Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-            Screen.drawNumbers(4, tempY, {temperature});
-        }
+    if (temperature >= 10)
+    {
+        Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+        Screen.drawNumbers(2, tempY, {(temperature - temperature % 10) / 10, temperature % 10});
+    }
+    else if (temperature <= -10)
+    {
+        Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
+        Screen.drawCharacter(11, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+        Screen.drawNumbers(4, tempY, {(temperature - temperature % 10) / 10, temperature % 10});
+    }
+    else if (temperature >= 0)
+    {
+        Screen.drawCharacter(7, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+        Screen.drawNumbers(5, tempY, {temperature});
+    }
+    else
+    {
+        Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
+        Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+        Screen.drawNumbers(4, tempY, {temperature});
+    }
+    Screen.switchScreen();
 }
 
 const char *WeatherPlugin::getName() const

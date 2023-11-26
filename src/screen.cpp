@@ -35,9 +35,25 @@ void Screen_::setRenderBuffer(const uint8_t *renderBuffer, bool grays)
 
 uint8_t *Screen_::getRotatedRenderBuffer()
 {
+  if(performEffect) {
+    if(++effectDelay > 50) {
+      for (int row  = 0; row < ROWS; row++) {
+        for (int col = 0; col < COLS - 1; col++) {
+          this->resultingRenderBuffer_[COLS * row + col] = this->resultingRenderBuffer_[COLS * row + col + 1];
+        }
+        this->resultingRenderBuffer_[COLS * row + COLS - 1] = this->renderBuffer_[COLS * row + effectCol];
+      }
+
+      effectDelay = 0;
+      if(++effectCol >= COLS) {
+        this->performEffect = false;
+      }
+    }
+  }
+
   for (int i = 0; i < ROWS * COLS; i++)
   {
-    this->rotatedRenderBuffer_[i] = this->renderBuffer_[i];
+    this->rotatedRenderBuffer_[i] = this->resultingRenderBuffer_[i];
   }
 
   this->rotate();
@@ -96,6 +112,12 @@ void Screen_::clear()
   memset(this->renderBuffer_, 0, ROWS * COLS);
 }
 
+void Screen_::switchScreen() {
+  this->performEffect = true;
+  this->effectCol = 0;
+  this->effectDelay = 0;
+}
+
 void Screen_::persist()
 {
 #ifdef ENABLE_STORAGE
@@ -151,6 +173,8 @@ void Screen_::setup()
   timerAlarmWrite(Screen_timer, TIMER_INTERVAL_US, true);
   timerAlarmEnable(Screen_timer);
 #endif
+
+  this->performEffect = false;
 }
 
 void ICACHE_RAM_ATTR Screen_::_render()

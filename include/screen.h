@@ -14,7 +14,11 @@ private:
   void rotate();
   uint8_t brightness = 255;
   uint8_t renderBuffer_[ROWS * COLS];
+  uint8_t resultingRenderBuffer_[ROWS * COLS];
   uint8_t rotatedRenderBuffer_[ROWS * COLS];
+  bool performEffect;
+  uint8_t effectCol;
+  uint8_t effectDelay;
   uint8_t cache[ROWS * COLS];
   uint8_t positions[ROWS * COLS] = {
       0x0f, 0x0e, 0x0d, 0x0c, 0x0b, 0x0a, 0x09, 0x08, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
@@ -53,6 +57,7 @@ public:
   uint8_t *getRotatedRenderBuffer();
 
   void clear();
+  void switchScreen();
   void drawLine(uint8_t line, bool isHorizontal);
   void setPixel(uint8_t x, uint8_t y, uint8_t value, uint8_t brightness = 255);
   void setPixelAtIndex(uint8_t index, uint8_t value, uint8_t brightness = 255);
