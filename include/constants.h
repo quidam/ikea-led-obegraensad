@@ -42,6 +42,7 @@
 
 #define COLS 16
 #define ROWS 16
+#define CANVAS_COLS 120
 
 // set your city or coords (https://github.com/chubin/wttr.in)
 #define WEATHER_LOCATION "langenfeld"

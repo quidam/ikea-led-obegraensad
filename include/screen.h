@@ -13,7 +13,7 @@ private:
   int findPosition(uint8_t count);
   void rotate();
   uint8_t brightness = 255;
-  uint8_t renderBuffer_[ROWS * COLS];
+  uint8_t renderBuffer_[ROWS * CANVAS_COLS];
   uint8_t resultingRenderBuffer_[ROWS * COLS];
   uint8_t rotatedRenderBuffer_[ROWS * COLS];
   bool performEffect;
