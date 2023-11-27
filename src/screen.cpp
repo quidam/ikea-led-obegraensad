@@ -318,6 +318,26 @@ void Screen_::drawBigNumbers(int x, int y, std::vector<int> numbers, uint8_t bri
   }
 }
 
+void Screen_::drawBigMinusSign(int x, int y, uint8_t brightness) {
+    this->drawCharacter(x, y, this->readBytes(bigMinusSymbol), 8, brightness);
+}
+
+void Screen_::drawBigDegreeSign(int x, int y, uint8_t brightness) {
+    this->drawCharacter(x, y, this->readBytes(bigDegreeSymbol), 8, brightness);
+}
+
+void Screen_::drawBigColon(int x, int y, uint8_t brightness) {
+    this->drawCharacter(x, y, this->readBytes(bigColonSymbol), 8, brightness);
+}
+
+void Screen_::drawBigArrowUp(int x, int y, uint8_t brightness) {
+    this->drawCharacter(x, y, this->readBytes(bigArrowUpSymbol), 8, brightness);
+}
+
+void Screen_::drawBigArrowDown(int x, int y, uint8_t brightness) {
+    this->drawCharacter(x, y, this->readBytes(bigArrowDownSymbol), 8, brightness);
+}
+
 void Screen_::drawWeather(int x, int y, int weather, uint8_t brightness)
 {
   this->drawCharacter(x, y, this->readBytes(weatherIcons[weather]), 16, brightness);

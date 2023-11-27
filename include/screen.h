@@ -73,6 +73,11 @@ public:
   void drawCharacter(int x, int y, std::vector<int> bits, int bitCount, uint8_t brightness = 255);
   void drawNumbers(int x, int y, std::vector<int> numbers, uint8_t brightness = 255);
   void drawBigNumbers(int x, int y, std::vector<int> numbers, uint8_t brightness = 255);
+  void drawBigMinusSign(int x, int y, uint8_t brightness = 255);
+  void drawBigDegreeSign(int x, int y, uint8_t brightness = 255);
+  void drawBigColon(int x, int y, uint8_t brightness = 255);
+  void drawBigArrowUp(int x, int y, uint8_t brightness = 255);
+  void drawBigArrowDown(int x, int y, uint8_t brightness = 255);
   void drawWeather(int x, int y, int weather, uint8_t brightness = 255);
   std::vector<int> readBytes(std::vector<int> bytes);
 };
