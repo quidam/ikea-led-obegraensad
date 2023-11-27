@@ -36,16 +36,16 @@ void Screen_::setRenderBuffer(const uint8_t *renderBuffer, bool grays)
 uint8_t *Screen_::getRotatedRenderBuffer()
 {
   if(performEffect) {
-    if(++effectDelay > 50) {
+    if(++effectDelay > 400) {
       for (int row  = 0; row < ROWS; row++) {
         for (int col = 0; col < COLS - 1; col++) {
           this->resultingRenderBuffer_[COLS * row + col] = this->resultingRenderBuffer_[COLS * row + col + 1];
         }
-        this->resultingRenderBuffer_[COLS * row + COLS - 1] = this->renderBuffer_[COLS * row + effectCol];
+        this->resultingRenderBuffer_[COLS * row + COLS - 1] = this->renderBuffer_[CANVAS_COLS * row + effectCol];
       }
 
       effectDelay = 0;
-      if(++effectCol >= COLS) {
+      if(++effectCol >= this->canvasCols) {
         this->performEffect = false;
       }
     }
@@ -109,10 +109,11 @@ void Screen_::rotate()
 
 void Screen_::clear()
 {
-  memset(this->renderBuffer_, 0, ROWS * COLS);
+  memset(this->renderBuffer_, 0, ROWS * CANVAS_COLS);
 }
 
-void Screen_::switchScreen() {
+void Screen_::switchScreen(uint8_t canvasCols) {
+  this->canvasCols = canvasCols;
   this->performEffect = true;
   this->effectCol = 0;
   this->effectDelay = 0;
@@ -131,7 +132,7 @@ void Screen_::persist()
 
 void Screen_::setPixelAtIndex(uint8_t index, uint8_t value, uint8_t brightness)
 {
-  if (index >= 0 && index < COLS * ROWS)
+  if (index >= 0 && index < COLS * CANVAS_COLS)
   {
     this->renderBuffer_[index] = value <= 0 || brightness <= 0 ? 0 : (brightness > 255 ? 255 : brightness);
   }
@@ -139,9 +140,9 @@ void Screen_::setPixelAtIndex(uint8_t index, uint8_t value, uint8_t brightness)
 
 void Screen_::setPixel(uint8_t x, uint8_t y, uint8_t value, uint8_t brightness)
 {
-  if (x >= 0 && y >= 0 && x < 16 && y < 16)
+  if (x >= 0 && y >= 0 && x < CANVAS_COLS && y < 16)
   {
-    this->renderBuffer_[y * 16 + x] = value <= 0 || brightness <= 0 ? 0 : (brightness > 255 ? 255 : brightness);
+    this->renderBuffer_[y * CANVAS_COLS + x] = value <= 0 || brightness <= 0 ? 0 : (brightness > 255 ? 255 : brightness);
   }
 }
 
@@ -175,6 +176,7 @@ void Screen_::setup()
 #endif
 
   this->performEffect = false;
+  this->canvasCols = 16;
 }
 
 void ICACHE_RAM_ATTR Screen_::_render()

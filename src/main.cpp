@@ -113,7 +113,6 @@ void loop()
   struct tm timeinfo;
   if (getLocalTime(&timeinfo)) {
     if (timeinfo.tm_hour >= 23 ) {
-    // if (timeinfo.tm_sec == 0 ) {
       esp_sleep_enable_timer_wakeup(SLEEP_DURATION * uS_TO_S_FACTOR);
       esp_deep_sleep_start();
     }

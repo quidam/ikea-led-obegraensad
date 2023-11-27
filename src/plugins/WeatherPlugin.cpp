@@ -126,7 +126,7 @@ void WeatherPlugin::draw()
         Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
         Screen.drawNumbers(4, tempY, {temperature});
     }
-    Screen.switchScreen();
+    Screen.switchScreen(16);
 }
 
 const char *WeatherPlugin::getName() const

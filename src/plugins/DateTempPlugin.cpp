@@ -76,10 +76,16 @@ void DateTempPlugin::draw()
 
     // Date
 
-    Screen.drawNumbers(0, 2, {(dayOfMonth - dayOfMonth % 10) / 10, dayOfMonth % 10});
-    Screen.drawNumbers(8, 2, {(month - month % 10) / 10, month % 10});
-    Screen.setPixel(7, 6, 1, 30);
-    Screen.setPixel(15, 6, 1, 30);
+    // Screen.drawNumbers(0, 2, {(dayOfMonth - dayOfMonth % 10) / 10, dayOfMonth % 10});
+    // Screen.drawNumbers(8, 2, {(month - month % 10) / 10, month % 10});
+    // Screen.setPixel(7, 6, 1, 30);
+    // Screen.setPixel(15, 6, 1, 30);
+    Screen.drawBigNumbers(0, 4, {(dayOfMonth - dayOfMonth % 10) / 10, dayOfMonth % 10});
+    Screen.setPixel(16, 11, 1);
+    Screen.drawBigNumbers(18, 4, {(month - month % 10) / 10, month % 10});
+    Screen.setPixel(34, 11, 1);
+
+    int canvasCols = 36;
 
     // Temperature
 
@@ -93,26 +99,40 @@ void DateTempPlugin::draw()
             degrees = degrees.substr(1);
             int iDegrees = stoi(degrees);
             if(iDegrees >= 10) {
-                Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
-                Screen.drawCharacter(11, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-                Screen.drawNumbers(4, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+                // Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
+                // Screen.drawCharacter(11, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+                // Screen.drawNumbers(4, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+                Screen.drawBigMinusSign(36, 4);
+                Screen.drawBigNumbers(44, 4, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+                Screen.drawBigDegreeSign(60, 4);
+                canvasCols = 68;
             } else {
-                Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
-                Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-                Screen.drawNumbers(4, tempY, {iDegrees});
+                // Screen.drawCharacter(0, tempY, Screen.readBytes(minusSymbol), 4);
+                // Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+                // Screen.drawNumbers(4, tempY, {iDegrees});
+                Screen.drawBigMinusSign(36, 4);
+                Screen.drawBigNumbers(44, 4, {iDegrees});
+                Screen.drawBigDegreeSign(52, 4);
+                canvasCols = 60;
             }
         } else {
             int iDegrees = stoi(degrees);
             if(iDegrees >= 10) {
-                Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-                Screen.drawNumbers(2, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+                // Screen.drawCharacter(9, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+                // Screen.drawNumbers(2, tempY, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+                Screen.drawBigNumbers(36, 4, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+                Screen.drawBigDegreeSign(52, 4);
+                canvasCols = 60;
             } else {
-                Screen.drawCharacter(7, tempY, Screen.readBytes(degreeSymbol), 4, 50);
-                Screen.drawNumbers(5, tempY, {iDegrees});
+                // Screen.drawCharacter(7, tempY, Screen.readBytes(degreeSymbol), 4, 50);
+                // Screen.drawNumbers(5, tempY, {iDegrees});
+                Screen.drawBigNumbers(36, 4, {iDegrees});
+                Screen.drawBigDegreeSign(44, 4);
+                canvasCols = 52;
             }
         }
     }
-    Screen.switchScreen();
+    Screen.switchScreen(canvasCols);
 }
 
 const char *DateTempPlugin::getName() const
