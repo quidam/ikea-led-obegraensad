@@ -100,8 +100,8 @@ void setup()
 
   pluginManager.addScheduleItem(bigClockPluginId, 5);
   pluginManager.addScheduleItem(dateTempPluginId, 0);
-  // pluginManager.addScheduleItem(bigClockPluginId, 5);
-  // pluginManager.addScheduleItem(weatherPluginId, 10);
+  pluginManager.addScheduleItem(bigClockPluginId, 5);
+  pluginManager.addScheduleItem(weatherPluginId, 0);
   pluginManager.addScheduleItem(bigClockPluginId, 5);
   pluginManager.addScheduleItem(sunPluginId, 0);
 #endif

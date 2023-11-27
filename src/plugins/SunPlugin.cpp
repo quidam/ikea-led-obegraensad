@@ -90,12 +90,12 @@ void SunPlugin::draw()
     int sunsetHour = stoi(sSunsetHour);
     int sunsetMinute = stoi(sSunsetMinute);
 
-    Screen.drawBigArrowDown(48, 4);
-    Screen.drawBigNumbers(56, 4, {(sunsetHour - sunsetHour % 10) / 10, sunsetHour % 10});
-    Screen.drawBigColon(72, 4);
-    Screen.drawBigNumbers(80, 4, {(sunsetMinute - sunsetMinute % 10) / 10, sunsetMinute % 10});
+    Screen.drawBigArrowDown(56, 4);
+    Screen.drawBigNumbers(64, 4, {(sunsetHour - sunsetHour % 10) / 10, sunsetHour % 10});
+    Screen.drawBigColon(80, 4);
+    Screen.drawBigNumbers(88, 4, {(sunsetMinute - sunsetMinute % 10) / 10, sunsetMinute % 10});
 
-    Screen.switchScreen(96);
+    Screen.switchScreen(104);
 }
 
 const char *SunPlugin::getName() const
