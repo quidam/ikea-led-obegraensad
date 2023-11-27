@@ -59,3 +59,11 @@ enum SYSTEM_STATUS
 };
 
 extern SYSTEM_STATUS currentStatus;
+
+enum SCREEN_STATUS
+{
+  STATIC,
+  CRAWLING,
+};
+
+extern SCREEN_STATUS screenStatus;

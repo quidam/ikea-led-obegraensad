@@ -17,7 +17,6 @@ private:
   uint8_t resultingRenderBuffer_[ROWS * COLS];
   uint8_t rotatedRenderBuffer_[ROWS * COLS];
   uint8_t canvasCols;
-  bool performEffect;
   uint8_t effectCol;
   uint16_t effectDelay;
   uint8_t cache[ROWS * COLS];

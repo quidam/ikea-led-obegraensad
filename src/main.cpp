@@ -25,6 +25,7 @@
 
 PluginManager pluginManager;
 SYSTEM_STATUS currentStatus = NONE;
+SCREEN_STATUS screenStatus = STATIC;
 
 unsigned long lastConnectionAttempt = 0;
 const unsigned long connectionInterval = 10000;

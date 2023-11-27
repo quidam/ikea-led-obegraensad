@@ -35,7 +35,7 @@ void Screen_::setRenderBuffer(const uint8_t *renderBuffer, bool grays)
 
 uint8_t *Screen_::getRotatedRenderBuffer()
 {
-  if(performEffect) {
+  if(screenStatus == CRAWLING) {
     if(++effectDelay > 400) {
       for (int row  = 0; row < ROWS; row++) {
         for (int col = 0; col < COLS - 1; col++) {
@@ -46,7 +46,7 @@ uint8_t *Screen_::getRotatedRenderBuffer()
 
       effectDelay = 0;
       if(++effectCol >= this->canvasCols) {
-        this->performEffect = false;
+        screenStatus = STATIC;
       }
     }
   }
@@ -114,7 +114,7 @@ void Screen_::clear()
 
 void Screen_::switchScreen(uint8_t canvasCols) {
   this->canvasCols = canvasCols;
-  this->performEffect = true;
+  screenStatus = CRAWLING;
   this->effectCol = 0;
   this->effectDelay = 0;
 }
@@ -174,8 +174,6 @@ void Screen_::setup()
   timerAlarmWrite(Screen_timer, TIMER_INTERVAL_US, true);
   timerAlarmEnable(Screen_timer);
 #endif
-
-  this->performEffect = false;
 }
 
 void ICACHE_RAM_ATTR Screen_::_render()
