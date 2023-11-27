@@ -45,7 +45,7 @@ uint8_t *Screen_::getRotatedRenderBuffer()
       }
 
       effectDelay = 0;
-      if(++effectCol >= COLS) {
+      if(++effectCol >= this->canvasCols) {
         this->performEffect = false;
       }
     }
@@ -112,7 +112,8 @@ void Screen_::clear()
   memset(this->renderBuffer_, 0, ROWS * CANVAS_COLS);
 }
 
-void Screen_::switchScreen() {
+void Screen_::switchScreen(uint8_t canvasCols) {
+  this->canvasCols = canvasCols;
   this->performEffect = true;
   this->effectCol = 0;
   this->effectDelay = 0;

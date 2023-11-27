@@ -99,7 +99,7 @@ void SunPlugin::draw()
     Screen.drawLine(6, 8, 9, 8, 1, 30);
     Screen.drawLine(7, 9, 8, 9, 1, 30);
 
-    Screen.switchScreen();
+    Screen.switchScreen(16);
 }
 
 const char *SunPlugin::getName() const

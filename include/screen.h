@@ -16,6 +16,7 @@ private:
   uint8_t renderBuffer_[ROWS * CANVAS_COLS];
   uint8_t resultingRenderBuffer_[ROWS * COLS];
   uint8_t rotatedRenderBuffer_[ROWS * COLS];
+  uint8_t canvasCols;
   bool performEffect;
   uint8_t effectCol;
   uint8_t effectDelay;
@@ -57,7 +58,7 @@ public:
   uint8_t *getRotatedRenderBuffer();
 
   void clear();
-  void switchScreen();
+  void switchScreen(uint8_t canvasCols);
   void drawLine(uint8_t line, bool isHorizontal);
   void setPixel(uint8_t x, uint8_t y, uint8_t value, uint8_t brightness = 255);
   void setPixelAtIndex(uint8_t index, uint8_t value, uint8_t brightness = 255);

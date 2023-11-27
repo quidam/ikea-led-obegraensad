@@ -112,7 +112,7 @@ void DateTempPlugin::draw()
             }
         }
     }
-    Screen.switchScreen();
+    Screen.switchScreen(16);
 }
 
 const char *DateTempPlugin::getName() const
