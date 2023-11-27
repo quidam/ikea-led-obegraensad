@@ -43,24 +43,18 @@ void DateTempPlugin::draw()
 
     // Date
 
-    // Screen.drawNumbers(0, 2, {(dayOfMonth - dayOfMonth % 10) / 10, dayOfMonth % 10});
-    // Screen.drawNumbers(8, 2, {(month - month % 10) / 10, month % 10});
-    // Screen.setPixel(7, 6, 1, 30);
-    // Screen.setPixel(15, 6, 1, 30);
-    Screen.drawBigNumbers(0, 4, {(dayOfMonth - dayOfMonth % 10) / 10, dayOfMonth % 10});
-    Screen.setPixel(17, 9, 1);
-    Screen.setPixel(18, 9, 1);
-    Screen.setPixel(17, 10, 1);
-    Screen.setPixel(18, 10, 1);
-    Screen.drawBigNumbers(19, 4, {(month - month % 10) / 10, month % 10});
-    Screen.setPixel(36, 9, 1);
-    Screen.setPixel(37, 9, 1);
-    Screen.setPixel(36, 10, 1);
-    Screen.setPixel(37, 10, 1);
+    Screen.drawBigNumbers(4, 4, {(dayOfMonth - dayOfMonth % 10) / 10, dayOfMonth % 10});
+    Screen.setPixel(21, 9, 1);
+    Screen.setPixel(22, 9, 1);
+    Screen.setPixel(21, 10, 1);
+    Screen.setPixel(22, 10, 1);
+    Screen.drawBigNumbers(23, 4, {(month - month % 10) / 10, month % 10});
+    Screen.setPixel(40, 9, 1);
+    Screen.setPixel(41, 9, 1);
+    Screen.setPixel(40, 10, 1);
+    Screen.setPixel(41, 10, 1);
 
-    uint8_t canvasCols = 38;
-
-    Screen.switchScreen(canvasCols);
+    Screen.switchScreen(46);
 }
 
 const char *DateTempPlugin::getName() const

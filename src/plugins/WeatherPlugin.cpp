@@ -127,7 +127,7 @@ void WeatherPlugin::updateTemperature()
 void WeatherPlugin::draw()
 {
     Screen.clear();
-    Screen.drawWeather(0, iconY, weatherIcon, 100);
+    Screen.drawWeather(4, iconY, weatherIcon, 100);
 
     uint8_t canvasCols = 16;
 
@@ -143,26 +143,26 @@ void WeatherPlugin::draw()
             degrees = degrees.substr(1);
             int iDegrees = stoi(degrees);
             if(iDegrees >= 10) {
-                Screen.drawBigMinusSign(16, 4);
-                Screen.drawBigNumbers(24, 4, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
-                Screen.drawBigDegreeSign(40, 4);
-                canvasCols = 48;
+                Screen.drawBigMinusSign(20, 4);
+                Screen.drawBigNumbers(28, 4, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+                Screen.drawBigDegreeSign(44, 4);
+                canvasCols = 56;
             } else {
-                Screen.drawBigMinusSign(16, 4);
-                Screen.drawBigNumbers(24, 4, {iDegrees});
-                Screen.drawBigDegreeSign(32, 4);
-                canvasCols = 70;
+                Screen.drawBigMinusSign(20, 4);
+                Screen.drawBigNumbers(28, 4, {iDegrees});
+                Screen.drawBigDegreeSign(36, 4);
+                canvasCols = 48;
             }
         } else {
             int iDegrees = stoi(degrees);
             if(iDegrees >= 10) {
-                Screen.drawBigNumbers(16, 4, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
-                Screen.drawBigDegreeSign(32, 4);
-                canvasCols = 40;
+                Screen.drawBigNumbers(20, 4, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+                Screen.drawBigDegreeSign(36, 4);
+                canvasCols = 48;
             } else {
-                Screen.drawBigNumbers(16, 4, {iDegrees});
-                Screen.drawBigDegreeSign(24, 4);
-                canvasCols = 32;
+                Screen.drawBigNumbers(20, 4, {iDegrees});
+                Screen.drawBigDegreeSign(28, 4);
+                canvasCols = 40;
             }
         }
     }
