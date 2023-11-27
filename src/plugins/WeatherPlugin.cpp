@@ -16,8 +16,9 @@ void WeatherPlugin::setup()
     Screen.setPixel(8, 7, 1);
     Screen.setPixel(10, 7, 1);
     Screen.setPixel(11, 7, 1);
-    this->temperature = -99;
-    this->update();
+    this->temperature = "undefined";
+    this->updateWeather();
+    this->updateTemperature();
     this->lastUpdate = millis();
     currentStatus = NONE;
 }
@@ -28,33 +29,37 @@ void WeatherPlugin::activate() {
 
 void WeatherPlugin::loop()
 {
-    int checkInterval = this->temperature == -99 ? 1000 * 30 : 1000 * 60 * 30;
+    int checkInterval = this->temperature == "undefined" ? 1000 * 30 : 1000 * 60 * 30;
     if (millis() >= this->lastUpdate + checkInterval)
     {
         Serial.println("updating weather");
-        this->update();
+        this->updateWeather();
+
+        Serial.println("updating temperature");
+        this->updateTemperature();
+
         this->lastUpdate = millis();
+        draw();
     };
 }
 
-void WeatherPlugin::update()
+void WeatherPlugin::updateWeather()
 {
     String weatherApiString = "https://wttr.in/" + String(WEATHER_LOCATION) + "?format=j2&lang=en";
 #ifdef ESP32
-    http.begin(weatherApiString);
+    httpWeather.begin(weatherApiString);
 #endif
 #ifdef ESP8266
-    http.begin(wiFiClient, weatherApiString);
+    httpWeather.begin(wiFiClient, weatherApiString);
 #endif
 
-    int code = http.GET();
+    int code = httpWeather.GET();
 
     if (code == HTTP_CODE_OK)
     {
         DynamicJsonDocument doc(2048);
-        deserializeJson(doc, http.getString());
+        deserializeJson(doc, httpWeather.getString());
 
-        temperature = round(doc["current_condition"][0]["temp_C"].as<float>());
         weatherCode = doc["current_condition"][0]["weatherCode"].as<int>();
         weatherIcon = 0;
         iconY = 4;
@@ -94,6 +99,29 @@ void WeatherPlugin::update()
 
         draw();
     }
+
+    httpWeather.end();
+}
+
+void WeatherPlugin::updateTemperature()
+{
+#ifdef ESP32
+    httpTemperature.begin(apiString);
+#endif
+#ifdef ESP8266
+    httpTemperature.begin(wiFiClient, weatherApiString);
+#endif
+
+    int code = httpTemperature.GET();
+
+    if (code == HTTP_CODE_OK)
+    {
+        DynamicJsonDocument doc(2048);
+        deserializeJson(doc, httpTemperature.getString());
+        this->temperature = doc["state"].as<std::string>();
+    }
+
+    httpTemperature.end();
 }
 
 void WeatherPlugin::draw()
@@ -101,34 +129,44 @@ void WeatherPlugin::draw()
     Screen.clear();
     Screen.drawWeather(0, iconY, weatherIcon, 100);
 
-    uint8_t canvasCols;
+    uint8_t canvasCols = 16;
 
-    if (temperature >= 10)
-    {
-        Screen.drawBigNumbers(16, 4, {(temperature - temperature % 10) / 10, temperature % 10});
-        Screen.drawBigDegreeSign(32, 4);
-        canvasCols = 40;
+    // Temperature
+
+    if (temperature != "undefined") {
+        int dot = temperature.find(".");
+        std::string degrees = temperature.substr(0, dot);
+
+        int tempY = 10;
+
+        if (degrees.substr(0, 1).compare("-") == 0) {
+            degrees = degrees.substr(1);
+            int iDegrees = stoi(degrees);
+            if(iDegrees >= 10) {
+                Screen.drawBigMinusSign(16, 4);
+                Screen.drawBigNumbers(24, 4, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+                Screen.drawBigDegreeSign(40, 4);
+                canvasCols = 48;
+            } else {
+                Screen.drawBigMinusSign(16, 4);
+                Screen.drawBigNumbers(24, 4, {iDegrees});
+                Screen.drawBigDegreeSign(32, 4);
+                canvasCols = 70;
+            }
+        } else {
+            int iDegrees = stoi(degrees);
+            if(iDegrees >= 10) {
+                Screen.drawBigNumbers(16, 4, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
+                Screen.drawBigDegreeSign(32, 4);
+                canvasCols = 40;
+            } else {
+                Screen.drawBigNumbers(16, 4, {iDegrees});
+                Screen.drawBigDegreeSign(24, 4);
+                canvasCols = 32;
+            }
+        }
     }
-    else if (temperature <= -10)
-    {
-        Screen.drawBigMinusSign(16, 4);
-        Screen.drawBigNumbers(24, 4, {(temperature - temperature % 10) / 10, temperature % 10});
-        Screen.drawBigDegreeSign(40, 4);
-        canvasCols = 48;
-    }
-    else if (temperature >= 0)
-    {
-        Screen.drawBigNumbers(16, 4, {temperature});
-        Screen.drawBigDegreeSign(24, 4);
-        canvasCols = 32;
-    }
-    else
-    {
-        Screen.drawBigMinusSign(16, 4);
-        Screen.drawBigNumbers(24, 4, {temperature});
-        Screen.drawBigDegreeSign(32, 4);
-        canvasCols = 40;
-    }
+
     Screen.switchScreen(canvasCols);
 }
 

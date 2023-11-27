@@ -15,12 +15,18 @@ class WeatherPlugin : public Plugin
 {
 private:
   unsigned long lastUpdate = 0;
-  HTTPClient http;
-  int temperature;
+
+  // Weather
+  HTTPClient httpWeather;
   int weatherCode;
   int weatherIcon;
   int iconY;
-  int tempY;
+
+  // Temperature
+  HTTPClient httpTemperature;
+  const String apiString = "http://" + String(OPENHAB_SERVER) +":" + String(OPENHAB_PORT) + "/rest/items/" + String(OPENHAB_ITEM_TEMPERATURE);
+  std::string temperature;
+
   void draw();
 
   std::vector<int> thunderCodes = {200, 386, 389, 392, 395};
@@ -39,7 +45,8 @@ private:
       392, 395, 230, 350};
 
 public:
-  void update();
+  void updateWeather();
+  void updateTemperature();
   void setup() override;
   void activate() override;
   void loop() override;

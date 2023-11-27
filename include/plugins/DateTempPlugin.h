@@ -24,17 +24,9 @@ private:
   int dayOfMonth;
   int month;
 
-// Temperature
-  unsigned long lastUpdate = 0;
-  const String apiString = "http://" + String(OPENHAB_SERVER) +":" + String(OPENHAB_PORT) + "/rest/items/" + String(OPENHAB_ITEM_TEMPERATURE);
-  std::string temperature;
-
-  HTTPClient http;
-
   void draw();
 
 public:
-  void update();
   void setup() override;
   void activate() override;
   void loop() override;
