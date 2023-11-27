@@ -36,7 +36,7 @@ void Screen_::setRenderBuffer(const uint8_t *renderBuffer, bool grays)
 uint8_t *Screen_::getRotatedRenderBuffer()
 {
   if(performEffect) {
-    if(++effectDelay > 50) {
+    if(++effectDelay > 400) {
       for (int row  = 0; row < ROWS; row++) {
         for (int col = 0; col < COLS - 1; col++) {
           this->resultingRenderBuffer_[COLS * row + col] = this->resultingRenderBuffer_[COLS * row + col + 1];
