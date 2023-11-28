@@ -29,19 +29,21 @@ void SunPlugin::activate() {
 void SunPlugin::loop()
 {
     if (getLocalTime(&timeinfo)) {
-        if (lastUpdateDay != timeinfo.tm_mday) {
+        bool needsUpdate = (sunrise == "0000-00-00 00:00" || sunset == "0000-00-00 00:00") && (millis() >= this->lastUpdate + 1000 * 30);
+        if (needsUpdate || (lastUpdateDay != timeinfo.tm_mday)) {
             Serial.println("updating sunrise and sunset");
             this->update();
             draw();
-            lastUpdateDay = timeinfo.tm_mday;
+            this->lastUpdateDay = timeinfo.tm_mday;
+            this->lastUpdate = millis();
         }
     }
 }
 
 void SunPlugin::update()
 {
-    sunrise = httpGet(apiStringSunrise);
-    sunset = httpGet(apiStringSunset);
+    this->sunrise = httpGet(apiStringSunrise);
+    this->sunset = httpGet(apiStringSunset);
 }
 
 std::string SunPlugin::httpGet(String url) {
@@ -72,8 +74,8 @@ void SunPlugin::draw()
     Screen.clear();
 
     // Sunrise
-    std::string sSunriseHour = sunrise.substr(11, 2);
-    std::string sSunriseMinute = sunrise.substr(14, 2);
+    std::string sSunriseHour = this->sunrise.substr(11, 2);
+    std::string sSunriseMinute = this->sunrise.substr(14, 2);
 
     int sunriseHour = stoi(sSunriseHour);
     int sunriseMinute = stoi(sSunriseMinute);
