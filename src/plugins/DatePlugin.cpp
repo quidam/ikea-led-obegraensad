@@ -39,10 +39,6 @@ void DatePlugin::activate() {
     Screen.switchScreen(46);
 }
 
-void DatePlugin::loop()
-{
-}
-
 const char *DatePlugin::getName() const
 {
     return "DateTemp";

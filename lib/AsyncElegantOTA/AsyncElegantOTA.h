@@ -27,7 +27,6 @@ public:
   void
   setID(const char *id),
       begin(AsyncWebServer *server, const char *username = "", const char *password = ""),
-      loop(),
       onOTAStart(void callable(void)),
       onOTAProgress(void callable(void)),
       onOTAEnd(void callable(void)),

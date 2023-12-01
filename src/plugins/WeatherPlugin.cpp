@@ -46,10 +46,6 @@ void WeatherPlugin::activate() {
     draw();
 }
 
-void WeatherPlugin::loop()
-{
-}
-
 void WeatherPlugin::updateWeather()
 {
     String weatherApiString = "https://wttr.in/" + String(WEATHER_LOCATION) + "?format=j2&lang=en";

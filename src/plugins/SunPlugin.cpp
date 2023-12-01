@@ -35,9 +35,6 @@ void SunPlugin::activate() {
     draw();
 }
 
-void SunPlugin::loop() {
-}
-
 void SunPlugin::update()
 {
     this->sunrise = httpGet(apiStringSunrise);

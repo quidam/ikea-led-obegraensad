@@ -50,6 +50,5 @@ public:
   void updateTemperature();
   void setup() override;
   void activate() override;
-  void loop() override;
   const char *getName() const override;
 };

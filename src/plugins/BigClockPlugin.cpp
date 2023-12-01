@@ -25,10 +25,6 @@ void BigClockPlugin::activate()
   Screen.switchScreen(16);
 }
 
-void BigClockPlugin::loop()
-{
-}
-
 const char *BigClockPlugin::getName() const
 {
   return "Big Clock";

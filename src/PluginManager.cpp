@@ -13,7 +13,6 @@ int Plugin::getId() const
 }
 
 void Plugin::teardown() {}
-void Plugin::loop() {}
 void Plugin::websocketHook(DynamicJsonDocument &request) {}
 
 PluginManager::PluginManager() : nextPluginId(1) {}
@@ -126,20 +125,16 @@ void PluginManager::runActivePlugin()
         lastModeButtonState = modeButtonState;
         currentStatus = NONE;
     }
-    if (activePlugin)
-    {
-        if (screenStatus == STATIC) {
-            if (millis() - previousPluginSwitch > activePluginDuration)
-            {
-                activateNextPlugin();
+    if (currentStatus != UPDATE && currentStatus != LOADING && currentStatus != WSBINARY) {
+        if (activePlugin) {
+            if (screenStatus == STATIC) {
+                if (millis() - previousPluginSwitch > activePluginDuration)
+                {
+                    activateNextPlugin();
+                }
+            } else {
+                previousPluginSwitch = millis();
             }
-        } else {
-            previousPluginSwitch = millis();
-        }
-
-        if (currentStatus != UPDATE && currentStatus != LOADING && currentStatus != WSBINARY)
-        {
-            activePlugin->loop();
         }
     }
 }
