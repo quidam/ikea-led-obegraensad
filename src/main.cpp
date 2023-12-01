@@ -12,7 +12,7 @@
 
 #ifdef ENABLE_SERVER
 #include "plugins/BigClockPlugin.h"
-#include "plugins/DateTempPlugin.h"
+#include "plugins/DatePlugin.h"
 #include "plugins/SunPlugin.h"
 #include "plugins/WeatherPlugin.h"
 #endif
@@ -90,7 +90,7 @@ void setup()
 
 #ifdef ENABLE_SERVER
   Plugin *bigClockPlugin = new BigClockPlugin();
-  Plugin *dateTempPlugin = new DateTempPlugin();
+  Plugin *dateTempPlugin = new DatePlugin();
   Plugin *sunPlugin = new SunPlugin();
   Plugin *weatherPlugin = new WeatherPlugin();
   int bigClockPluginId = pluginManager.addPlugin(bigClockPlugin);

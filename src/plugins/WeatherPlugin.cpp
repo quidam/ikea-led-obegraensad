@@ -16,31 +16,38 @@ void WeatherPlugin::setup()
     Screen.setPixel(8, 7, 1);
     Screen.setPixel(10, 7, 1);
     Screen.setPixel(11, 7, 1);
-    this->temperature = "undefined";
     this->updateWeather();
     this->updateTemperature();
-    this->lastUpdate = millis();
     currentStatus = NONE;
 }
 
 void WeatherPlugin::activate() {
+    unsigned long now = millis();
+    int checkIntervalWeather = this->weatherIcon == -1 ? 1000 * 30 : 1000 * 60 * 30;
+    int checkIntervalTemperature = this->temperature == "undefined" ? 1000 * 30 : 1000 * 60 * 30;
+    if (now >= this->lastUpdateWeather + checkIntervalWeather) {
+        Serial.print("Icon: ");
+        Serial.print(this->weatherIcon);
+        Serial.print(" Check interval: ");
+        Serial.println(checkIntervalWeather);
+        Serial.print("Last update: ");
+        Serial.print(lastUpdateWeather);
+        Serial.print(" Now: ");
+        Serial.println(now);
+
+        Serial.println("updating weather");
+        this->updateWeather();
+    }
+
+    if (now >= this->lastUpdateTemperature + checkIntervalTemperature) {
+        Serial.println("updating temperature");
+        this->updateTemperature();
+    };
     draw();
 }
 
 void WeatherPlugin::loop()
 {
-    int checkInterval = this->temperature == "undefined" ? 1000 * 30 : 1000 * 60 * 30;
-    if (millis() >= this->lastUpdate + checkInterval)
-    {
-        Serial.println("updating weather");
-        this->updateWeather();
-
-        Serial.println("updating temperature");
-        this->updateTemperature();
-
-        this->lastUpdate = millis();
-        draw();
-    };
 }
 
 void WeatherPlugin::updateWeather()
@@ -53,16 +60,17 @@ void WeatherPlugin::updateWeather()
     httpWeather.begin(wiFiClient, weatherApiString);
 #endif
 
+    weatherIcon = -1;
+    iconY = 4;
+
     int code = httpWeather.GET();
 
-    if (code == HTTP_CODE_OK)
-    {
+    if (code == HTTP_CODE_OK) {
         DynamicJsonDocument doc(2048);
         deserializeJson(doc, httpWeather.getString());
 
         weatherCode = doc["current_condition"][0]["weatherCode"].as<int>();
         weatherIcon = 0;
-        iconY = 4;
 
         if (std::find(thunderCodes.begin(), thunderCodes.end(), weatherCode) != thunderCodes.end())
         {
@@ -84,7 +92,6 @@ void WeatherPlugin::updateWeather()
         else if (std::find(clearCodes.begin(), clearCodes.end(), weatherCode) != clearCodes.end())
         {
             weatherIcon = 2;
-            iconY = 3;
         }
         else if (std::find(cloudyCodes.begin(), cloudyCodes.end(), weatherCode) != cloudyCodes.end())
         {
@@ -96,11 +103,10 @@ void WeatherPlugin::updateWeather()
             weatherIcon = 3;
             iconY = 5;
         }
-
-        draw();
     }
 
     httpWeather.end();
+    this->lastUpdateWeather = millis();
 }
 
 void WeatherPlugin::updateTemperature()
@@ -112,6 +118,8 @@ void WeatherPlugin::updateTemperature()
     httpTemperature.begin(wiFiClient, weatherApiString);
 #endif
 
+    this->temperature = "undefined";
+
     int code = httpTemperature.GET();
 
     if (code == HTTP_CODE_OK)
@@ -122,12 +130,15 @@ void WeatherPlugin::updateTemperature()
     }
 
     httpTemperature.end();
+    this->lastUpdateTemperature = millis();
 }
 
 void WeatherPlugin::draw()
 {
     Screen.clear();
-    Screen.drawWeather(4, iconY, weatherIcon, 100);
+    if(weatherIcon >= 0) {
+        Screen.drawWeather(4, iconY, weatherIcon, 100);
+    }
 
     uint8_t canvasCols = 16;
 

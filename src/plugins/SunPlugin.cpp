@@ -23,21 +23,19 @@ void SunPlugin::setup()
 }
 
 void SunPlugin::activate() {
-    draw();
-}
-
-void SunPlugin::loop()
-{
     if (getLocalTime(&timeinfo)) {
         bool needsUpdate = (sunrise == "0000-00-00 00:00" || sunset == "0000-00-00 00:00") && (millis() >= this->lastUpdate + 1000 * 30);
         if (needsUpdate || (lastUpdateDay != timeinfo.tm_mday)) {
             Serial.println("updating sunrise and sunset");
             this->update();
-            draw();
             this->lastUpdateDay = timeinfo.tm_mday;
             this->lastUpdate = millis();
         }
     }
+    draw();
+}
+
+void SunPlugin::loop() {
 }
 
 void SunPlugin::update()

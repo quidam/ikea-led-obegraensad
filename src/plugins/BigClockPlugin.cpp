@@ -9,32 +9,24 @@ void BigClockPlugin::setup()
   Screen.setPixel(8, 7, 1);
   Screen.setPixel(10, 7, 1);
   Screen.setPixel(11, 7, 1);
-
 }
 
 void BigClockPlugin::activate()
 {
-  previousMinutes = -1;
-  previousHour = -1;
+  Screen.clear();
+
+  if (getLocalTime(&timeinfo)) {
+    std::vector<int> hh = {(timeinfo.tm_hour - timeinfo.tm_hour % 10) / 10, timeinfo.tm_hour % 10};
+    std::vector<int> mm = {(timeinfo.tm_min - timeinfo.tm_min % 10) / 10, timeinfo.tm_min % 10};
+    Screen.drawBigNumbers(0, 0, hh);
+    Screen.drawBigNumbers(0, ROWS / 2, mm);
+  }
+
+  Screen.switchScreen(16);
 }
 
 void BigClockPlugin::loop()
 {
-  if (getLocalTime(&timeinfo))
-  {
-    if (previousHour != timeinfo.tm_hour || previousMinutes != timeinfo.tm_min)
-    {
-      std::vector<int> hh = {(timeinfo.tm_hour - timeinfo.tm_hour % 10) / 10, timeinfo.tm_hour % 10};
-      std::vector<int> mm = {(timeinfo.tm_min - timeinfo.tm_min % 10) / 10, timeinfo.tm_min % 10};
-      Screen.clear();
-      Screen.drawBigNumbers(0, 0, hh);
-      Screen.drawBigNumbers(0, ROWS / 2, mm);
-      Screen.switchScreen(16);
-    }
-
-    previousMinutes = timeinfo.tm_min;
-    previousHour = timeinfo.tm_hour;
-  }
 }
 
 const char *BigClockPlugin::getName() const

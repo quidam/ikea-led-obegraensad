@@ -14,7 +14,8 @@
 class WeatherPlugin : public Plugin
 {
 private:
-  unsigned long lastUpdate = 0;
+  unsigned long lastUpdateWeather = 0;
+  unsigned long lastUpdateTemperature = 0;
 
   // Weather
   HTTPClient httpWeather;

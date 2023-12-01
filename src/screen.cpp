@@ -36,7 +36,7 @@ void Screen_::setRenderBuffer(const uint8_t *renderBuffer, bool grays)
 uint8_t *Screen_::getRotatedRenderBuffer()
 {
   if(screenStatus == CRAWLING) {
-    if(++effectDelay > 350) {
+    if(++effectDelay >= 350) {
       for (int row  = 0; row < ROWS; row++) {
         for (int col = 0; col < COLS - 1; col++) {
           this->resultingRenderBuffer_[COLS * row + col] = this->resultingRenderBuffer_[COLS * row + col + 1];
@@ -114,7 +114,7 @@ void Screen_::clear()
 
 void Screen_::switchScreen(uint8_t canvasCols) {
   this->canvasCols = canvasCols;
-  screenStatus = CRAWLING;
+  screenStatus = (canvasCols > 0) ? CRAWLING : STATIC;
   this->effectCol = 0;
   this->effectDelay = 0;
 }

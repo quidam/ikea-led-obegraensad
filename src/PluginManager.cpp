@@ -100,14 +100,15 @@ void PluginManager::setActivePlugin(const char *pluginName)
 
 void PluginManager::setActivePluginById(int pluginId)
 {
-    for (Plugin *plugin : plugins)
-    {
-        if (plugin->getId() == pluginId)
-        {
+    for (Plugin *plugin : plugins) {
+        if (plugin->getId() == pluginId) {
             setActivePlugin(plugin->getName());
             previousPluginSwitch = millis();
+            return;
         }
     }
+    Serial.print("Plugin not found: ");
+    Serial.println(pluginId);
 }
 
 int modeButtonState = 0;
@@ -165,9 +166,11 @@ void PluginManager::activateNextPlugin()
     Serial.println(scheduleIndex);
     std::tuple<int, int> nextPlugin = schedule[scheduleIndex];
     int pluginId = std::get<0>(nextPlugin);
-    activePluginDuration = 1000UL * std::get<1>(nextPlugin);
-    Serial.print("next plugin: ");
+    this->activePluginDuration = 1000UL * std::get<1>(nextPlugin);
+    Serial.print("Next plugin: ");
     Serial.println(pluginId);
+    Serial.print("Next duration: ");
+    Serial.println(this->activePluginDuration);
 
     setActivePluginById(pluginId);
 

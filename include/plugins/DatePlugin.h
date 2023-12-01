@@ -14,17 +14,10 @@
 #include <string>
 #include "PluginManager.h"
 
-class DateTempPlugin : public Plugin
+class DatePlugin : public Plugin
 {
 private:
-
-// Date
   struct tm timeinfo;
-
-  int dayOfMonth;
-  int month;
-
-  void draw();
 
 public:
   void setup() override;
