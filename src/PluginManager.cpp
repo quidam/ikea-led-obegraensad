@@ -157,15 +157,9 @@ size_t PluginManager::getNumPlugins()
 void PluginManager::activateNextPlugin()
 {
     scheduleIndex = scheduleIndex == schedule.size() - 1 ? 0 : scheduleIndex + 1;
-    Serial.print("Next schedule index: ");
-    Serial.println(scheduleIndex);
     std::tuple<int, int> nextPlugin = schedule[scheduleIndex];
     int pluginId = std::get<0>(nextPlugin);
     this->activePluginDuration = 1000UL * std::get<1>(nextPlugin);
-    Serial.print("Next plugin: ");
-    Serial.println(pluginId);
-    Serial.print("Next duration: ");
-    Serial.println(this->activePluginDuration);
 
     setActivePluginById(pluginId);
 

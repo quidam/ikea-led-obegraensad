@@ -325,10 +325,6 @@ void Screen_::drawBigDegreeSign(int x, int y, uint8_t brightness) {
     this->drawCharacter(x, y, this->readBytes(bigDegreeSymbol), 8, brightness);
 }
 
-void Screen_::drawBigColon(int x, int y, uint8_t brightness) {
-    this->drawCharacter(x, y, this->readBytes(bigColonSymbol), 8, brightness);
-}
-
 void Screen_::drawBigArrowUp(int x, int y, uint8_t brightness) {
     this->drawCharacter(x, y, this->readBytes(bigArrowUpSymbol), 8, brightness);
 }

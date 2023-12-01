@@ -152,23 +152,23 @@ void WeatherPlugin::draw()
             if(iDegrees >= 10) {
                 Screen.drawBigMinusSign(20, 4);
                 Screen.drawBigNumbers(28, 4, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
-                Screen.drawBigDegreeSign(44, 4);
+                Screen.drawBigDegreeSign(45, 4);
                 canvasCols = 56;
             } else {
                 Screen.drawBigMinusSign(20, 4);
                 Screen.drawBigNumbers(28, 4, {iDegrees});
-                Screen.drawBigDegreeSign(36, 4);
+                Screen.drawBigDegreeSign(37, 4);
                 canvasCols = 48;
             }
         } else {
             int iDegrees = stoi(degrees);
             if(iDegrees >= 10) {
                 Screen.drawBigNumbers(20, 4, {(iDegrees - iDegrees % 10) / 10, iDegrees % 10});
-                Screen.drawBigDegreeSign(36, 4);
+                Screen.drawBigDegreeSign(37, 4);
                 canvasCols = 48;
             } else {
                 Screen.drawBigNumbers(20, 4, {iDegrees});
-                Screen.drawBigDegreeSign(28, 4);
+                Screen.drawBigDegreeSign(29, 4);
                 canvasCols = 40;
             }
         }

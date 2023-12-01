@@ -77,8 +77,15 @@ void SunPlugin::draw()
 
     Screen.drawBigArrowUp(4, 4);
     Screen.drawBigNumbers(12, 4, {(sunriseHour - sunriseHour % 10) / 10, sunriseHour % 10});
-    Screen.drawBigColon(28, 4);
-    Screen.drawBigNumbers(36, 4, {(sunriseMinute - sunriseMinute % 10) / 10, sunriseMinute % 10});
+    Screen.setPixel(30, 5, 1);
+    Screen.setPixel(31, 5, 1);
+    Screen.setPixel(30, 6, 1);
+    Screen.setPixel(31, 6, 1);
+    Screen.setPixel(30, 9, 1);
+    Screen.setPixel(31, 9, 1);
+    Screen.setPixel(30, 10, 1);
+    Screen.setPixel(31, 10, 1);
+    Screen.drawBigNumbers(34, 4, {(sunriseMinute - sunriseMinute % 10) / 10, sunriseMinute % 10});
 
     // Sunset
     std::string sSunsetHour = sunset.substr(11, 2);
@@ -87,12 +94,19 @@ void SunPlugin::draw()
     int sunsetHour = stoi(sSunsetHour);
     int sunsetMinute = stoi(sSunsetMinute);
 
-    Screen.drawBigArrowDown(56, 4);
-    Screen.drawBigNumbers(64, 4, {(sunsetHour - sunsetHour % 10) / 10, sunsetHour % 10});
-    Screen.drawBigColon(80, 4);
-    Screen.drawBigNumbers(88, 4, {(sunsetMinute - sunsetMinute % 10) / 10, sunsetMinute % 10});
+    Screen.drawBigArrowDown(54, 4);
+    Screen.drawBigNumbers(62, 4, {(sunsetHour - sunsetHour % 10) / 10, sunsetHour % 10});
+    Screen.setPixel(80, 5, 1);
+    Screen.setPixel(81, 5, 1);
+    Screen.setPixel(80, 6, 1);
+    Screen.setPixel(81, 6, 1);
+    Screen.setPixel(80, 9, 1);
+    Screen.setPixel(81, 9, 1);
+    Screen.setPixel(80, 10, 1);
+    Screen.setPixel(81, 10, 1);
+    Screen.drawBigNumbers(84, 4, {(sunsetMinute - sunsetMinute % 10) / 10, sunsetMinute % 10});
 
-    Screen.switchScreen(108);
+    Screen.switchScreen(104);
 }
 
 const char *SunPlugin::getName() const
