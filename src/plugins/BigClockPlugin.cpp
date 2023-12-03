@@ -2,13 +2,6 @@
 
 void BigClockPlugin::setup()
 {
-  // loading screen
-  Screen.setPixel(4, 7, 1);
-  Screen.setPixel(5, 7, 1);
-  Screen.setPixel(7, 7, 1);
-  Screen.setPixel(8, 7, 1);
-  Screen.setPixel(10, 7, 1);
-  Screen.setPixel(11, 7, 1);
 }
 
 void BigClockPlugin::activate()

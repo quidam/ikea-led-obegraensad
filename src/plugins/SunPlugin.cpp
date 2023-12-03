@@ -6,15 +6,7 @@ WiFiClient wiFiClient;
 
 void SunPlugin::setup()
 {
-    // loading screen
-    Screen.clear();
     currentStatus = LOADING;
-    Screen.setPixel(4, 7, 1);
-    Screen.setPixel(5, 7, 1);
-    Screen.setPixel(7, 7, 1);
-    Screen.setPixel(8, 7, 1);
-    Screen.setPixel(10, 7, 1);
-    Screen.setPixel(11, 7, 1);
     this->update();
     if (getLocalTime(&timeinfo)) {
         this->lastUpdateDay = timeinfo.tm_mday;

@@ -7,15 +7,7 @@ WiFiClient wiFiClient;
 
 void WeatherPlugin::setup()
 {
-    // loading screen
-    Screen.clear();
     currentStatus = LOADING;
-    Screen.setPixel(4, 7, 1);
-    Screen.setPixel(5, 7, 1);
-    Screen.setPixel(7, 7, 1);
-    Screen.setPixel(8, 7, 1);
-    Screen.setPixel(10, 7, 1);
-    Screen.setPixel(11, 7, 1);
     this->updateWeather();
     this->updateTemperature();
     currentStatus = NONE;
@@ -26,15 +18,6 @@ void WeatherPlugin::activate() {
     int checkIntervalWeather = this->weatherIcon == -1 ? 1000 * 30 : 1000 * 60 * 30;
     int checkIntervalTemperature = this->temperature == "undefined" ? 1000 * 30 : 1000 * 60 * 30;
     if (now >= this->lastUpdateWeather + checkIntervalWeather) {
-        Serial.print("Icon: ");
-        Serial.print(this->weatherIcon);
-        Serial.print(" Check interval: ");
-        Serial.println(checkIntervalWeather);
-        Serial.print("Last update: ");
-        Serial.print(lastUpdateWeather);
-        Serial.print(" Now: ");
-        Serial.println(now);
-
         Serial.println("updating weather");
         this->updateWeather();
     }
