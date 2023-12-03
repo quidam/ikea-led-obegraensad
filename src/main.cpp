@@ -30,10 +30,21 @@ SCREEN_STATUS screenStatus = STATIC;
 unsigned long lastConnectionAttempt = 0;
 const unsigned long connectionInterval = 10000;
 
+void showStatusOnScreen(uint8_t status) {
+  if (status < 10) {
+    Screen.drawBigNumbers(4, 4, {status});
+  } else {
+    Screen.drawBigNumbers(0, 4, {(status - status % 10) / 10, status % 10});
+  }
+  Screen.switchScreen(0);
+  delay(500);
+}
+
 void connectToWiFi()
 {
   Serial.begin(115200);
   Serial.println("Connecting to Wi-Fi...");
+  showStatusOnScreen(0);
 
   // Delete old config
   WiFi.disconnect(true);
@@ -43,7 +54,7 @@ void connectToWiFi()
 
   // Wait for connection
   int attempts = 0;
-  while (WiFi.status() != WL_CONNECTED && attempts < 20)
+  while (WiFi.status() != WL_CONNECTED && attempts < 30)
   {
     delay(500);
     Serial.print(".");
@@ -55,10 +66,13 @@ void connectToWiFi()
   {
     Serial.print("Connected to WiFi network with IP Address: ");
     Serial.println(WiFi.localIP());
+    showStatusOnScreen(1);
   }
   else
   {
-    Serial.println("\nFailed to connect to Wi-Fi. Please check credentials.");
+    Serial.println("\nFailed to connect to Wi-Fi. Restarting.");
+    showStatusOnScreen(2);
+    ESP.restart();
   }
 
   lastConnectionAttempt = millis();
@@ -74,6 +88,8 @@ void setup()
   pinMode(PIN_ENABLE, OUTPUT);
   pinMode(PIN_BUTTON, INPUT_PULLUP);
 
+  Screen.setup();
+
 // server
 #ifdef ENABLE_SERVER
   connectToWiFi();
@@ -84,11 +100,7 @@ void setup()
   initOTA(server);
   initWebsocketServer(server);
   initWebServer();
-#endif
 
-  Screen.setup();
-
-#ifdef ENABLE_SERVER
   Plugin *bigClockPlugin = new BigClockPlugin();
   Plugin *dateTempPlugin = new DatePlugin();
   Plugin *sunPlugin = new SunPlugin();
