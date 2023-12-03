@@ -64,6 +64,7 @@ enum SCREEN_STATUS
 {
   STATIC,
   CRAWLING,
+  FINISHED,
 };
 
 extern SCREEN_STATUS screenStatus;

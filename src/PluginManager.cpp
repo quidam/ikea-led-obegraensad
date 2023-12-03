@@ -127,7 +127,7 @@ void PluginManager::runActivePlugin()
     }
     if (currentStatus != UPDATE && currentStatus != LOADING && currentStatus != WSBINARY) {
         if (activePlugin) {
-            if (screenStatus == STATIC) {
+            if (screenStatus == STATIC || screenStatus == FINISHED) {
                 if (millis() - previousPluginSwitch > activePluginDuration)
                 {
                     activateNextPlugin();

@@ -46,7 +46,13 @@ uint8_t *Screen_::getRotatedRenderBuffer()
 
       effectDelay = 0;
       if(++effectCol >= this->canvasCols) {
-        screenStatus = STATIC;
+        screenStatus = FINISHED;
+      }
+    }
+  } else if (screenStatus == STATIC) {
+    for (int row  = 0; row < ROWS; row++) {
+      for (int col = 0; col < COLS; col++) {
+        this->resultingRenderBuffer_[COLS * row + col] = this->renderBuffer_[CANVAS_COLS * row + col];
       }
     }
   }
