@@ -339,6 +339,10 @@ void Screen_::drawBigArrowDown(int x, int y, uint8_t brightness) {
     this->drawCharacter(x, y, this->readBytes(bigArrowDownSymbol), 8, brightness);
 }
 
+void Screen_::drawBigWaterSign(int x, int y, uint8_t brightness) {
+    this->drawCharacter(x, y, this->readBytes(bigWaterSymbol), 8, brightness);
+}
+
 void Screen_::drawWeather(int x, int y, int weather, uint8_t brightness)
 {
   this->drawCharacter(x, y, this->readBytes(weatherIcons[weather]), 16, brightness);

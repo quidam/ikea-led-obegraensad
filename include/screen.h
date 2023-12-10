@@ -77,6 +77,7 @@ public:
   void drawBigDegreeSign(int x, int y, uint8_t brightness = 255);
   void drawBigArrowUp(int x, int y, uint8_t brightness = 255);
   void drawBigArrowDown(int x, int y, uint8_t brightness = 255);
+  void drawBigWaterSign(int x, int y, uint8_t brightness = 255);
   void drawWeather(int x, int y, int weather, uint8_t brightness = 255);
   std::vector<int> readBytes(std::vector<int> bytes);
 };

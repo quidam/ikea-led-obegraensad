@@ -23,20 +23,24 @@ private:
 struct tm timeinfo;
 
 // Sunrise / Sunset
-  unsigned long lastUpdate = 0;
+  unsigned long lastUpdateSun = 0;
   unsigned int lastUpdateDay = 0;
+  unsigned long lastUpdateWaterLevel = 0;
   const String apiStringSunrise = "http://" + String(OPENHAB_SERVER) +":" + String(OPENHAB_PORT) + "/rest/items/" + String(OPENHAB_ITEM_SUNRISE);
   const String apiStringSunset = "http://" + String(OPENHAB_SERVER) +":" + String(OPENHAB_PORT) + "/rest/items/" + String(OPENHAB_ITEM_SUNSET);
   std::string sunrise;
   std::string sunset;
+  float waterLevel;
 
-  HTTPClient http;
+  HTTPClient httpSun;
+  HTTPClient httpWaterLevel;
 
-  std::string httpGet(String url);
+  std::string httpGetSun(String url);
   void draw();
 
 public:
-  void update();
+  void updateSun();
+  void updateWaterLevel();
   void setup() override;
   void activate() override;
   const char *getName() const override;

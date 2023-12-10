@@ -10,7 +10,7 @@ extern std::vector<int> degreeSymbol;
 extern std::vector<int> minusSymbol;
 extern std::vector<int> bigDegreeSymbol;
 extern std::vector<int> bigMinusSymbol;
-extern std::vector<int> bigColonSymbol;
+extern std::vector<int> bigWaterSymbol;
 extern std::vector<int> bigArrowUpSymbol;
 extern std::vector<int> bigArrowDownSymbol;
 

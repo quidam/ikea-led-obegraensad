@@ -42,11 +42,19 @@
 
 #define COLS 16
 #define ROWS 16
-#define CANVAS_COLS 120
+#define CANVAS_COLS 144
 
 // set your city or coords (https://github.com/chubin/wttr.in)
 #define WEATHER_LOCATION "langenfeld"
 
+#define WATER_LEVEL_UUID "a6ee8177-107b-47dd-bcfd-30960ccc6e9c"
+
+// use ALL of the following to use static IP config
+#define IP_ADDRESS "192.168.178.109"
+#define SUBNET "255.255.255.0"
+#define DNS1 "1.1.1.1"
+#define DNS2 "8.8.8.8"
+#define GWY "192.168.178.1"
 
 // ---------------
 
