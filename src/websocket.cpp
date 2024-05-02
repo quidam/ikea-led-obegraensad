@@ -100,10 +100,6 @@ void onWsEvent(
 
             sendMinimalInfo();
           }
-          else if (!strcmp(event, "persist-plugin"))
-          {
-            pluginManager.persistActivePlugin();
-          }
           else if (!strcmp(event, "rotate"))
           {
             bool isRight = (bool)!strcmp(wsRequest["direction"], "right");

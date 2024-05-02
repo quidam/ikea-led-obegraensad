@@ -31,14 +31,6 @@ void PluginManager::init()
         plugin->setup();
     }
 
-#ifdef ENABLE_STORAGE
-    storage.begin("led-wall", false);
-    Serial.print("restore plugin: ");
-    Serial.println(storage.getInt("current-plugin"));
-    pluginManager.setActivePluginById(storage.getInt("current-plugin"));
-    storage.end();
-#endif
-
     scheduleIndex = 0;
     if (!activePlugin)
     {
@@ -47,20 +39,6 @@ void PluginManager::init()
         activePluginDuration = 1000UL * std::get<1>(firstPlugin);
         pluginManager.setActivePluginById(pluginId);
     }
-}
-
-void PluginManager::persistActivePlugin()
-{
-#ifdef ENABLE_STORAGE
-    storage.begin("led-wall", false);
-    if (activePlugin)
-    {
-        Serial.print("persist plugin: ");
-        Serial.println(activePlugin->getId());
-        storage.putInt("current-plugin", activePlugin->getId());
-    }
-    storage.end();
-#endif
 }
 
 int PluginManager::addPlugin(Plugin *plugin)

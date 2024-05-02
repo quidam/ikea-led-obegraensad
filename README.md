@@ -49,7 +49,7 @@ The ESP32 I used:
 <img src="https://user-images.githubusercontent.com/15351728/200148521-86d0f9e6-2c41-4707-b2d9-8aa24a0e440e.jpg" width="60%" />
 
 Verified to work with TTGO LoRa32 V2.1 (T3_V1.6.1).
-Note: On esp8266 per pixel brightness only works when storage and global brightness (analogWrite) are disabled.
+Note: On esp8266 per pixel brightness only works when global brightness (analogWrite) are disabled.
 
 ## Open the lamp
 

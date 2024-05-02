@@ -29,7 +29,6 @@ void onOTAEnd()
   currentStatus = NONE;
 
   delay(1000);
-  Screen.loadFromStorage();
 }
 
 void initOTA(AsyncWebServer &server)

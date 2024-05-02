@@ -19,13 +19,6 @@
 #define PIN_BUTTON 2
 #endif
 
-// disable if you do not want to use the internal storage
-// https://randomnerdtutorials.com/esp32-save-data-permanently-preferences/
-// timer1 on esp8266 is not compatible with flash file system reads
-#ifndef ESP8266
-// #define ENABLE_STORAGE
-#endif
-
 #define uS_TO_S_FACTOR 1000000ULL
 #define SLEEP_DURATION 7ULL * 60 * 60
 

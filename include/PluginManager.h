@@ -50,7 +50,6 @@ public:
     void setActivePluginById(int pluginId);
     void runActivePlugin();
     void activateNextPlugin();
-    void persistActivePlugin();
     void init();
     Plugin *getActivePlugin() const;
     std::vector<Plugin *> &getAllPlugins();

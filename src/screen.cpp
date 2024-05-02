@@ -77,26 +77,6 @@ uint8_t Screen_::getBufferIndex(int index)
   return this->renderBuffer_[index];
 }
 
-void Screen_::loadFromStorage()
-{
-#ifdef ENABLE_STORAGE
-  storage.begin("led-wall", false);
-  this->setBrightness(255);
-  if (currentStatus == NONE)
-  {
-    this->clear();
-    storage.getBytes("data", this->renderBuffer_, ROWS * COLS);
-  }
-  else
-  {
-    storage.getBytes("data", this->cache, ROWS * COLS);
-  }
-  this->setBrightness(storage.getUInt("brightness", 255));
-  this->currentRotation = storage.getUInt("rotation", 0);
-  storage.end();
-#endif
-}
-
 void Screen_::rotate()
 {
   for (int row = 0; row < ROWS / 2; row++)
@@ -123,17 +103,6 @@ void Screen_::switchScreen(uint8_t canvasCols) {
   screenStatus = (canvasCols > 0) ? CRAWLING : STATIC;
   this->effectCol = 0;
   this->effectDelay = 0;
-}
-
-void Screen_::persist()
-{
-#ifdef ENABLE_STORAGE
-  storage.begin("led-wall", false);
-  storage.putBytes("data", this->renderBuffer_, ROWS * COLS);
-  storage.putUInt("brightness", this->brightness);
-  storage.putUInt("rotation", this->currentRotation);
-  storage.end();
-#endif
 }
 
 void Screen_::setPixelAtIndex(uint8_t index, uint8_t value, uint8_t brightness)
