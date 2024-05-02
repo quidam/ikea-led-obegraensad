@@ -18,7 +18,6 @@
 #include "plugins/WeatherPlugin.h"
 #endif
 
-#include "websocket.h"
 #include "secrets.h"
 #include "ota.h"
 #include "webserver.h"
@@ -118,7 +117,6 @@ void setup()
   configTzTime(TZ_INFO, NTP_SERVER);
 
   initOTA(server);
-  initWebsocketServer(server);
   initWebServer();
 
   Plugin *bigClockPlugin = new BigClockPlugin();
@@ -159,10 +157,6 @@ void loop()
     Serial.println("Lost connection to Wi-Fi. Reconnecting...");
     connectToWiFi();
   }
-
-#ifdef ENABLE_SERVER
-  cleanUpClients();
-#endif
 
   delay(1);
 }

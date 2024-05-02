@@ -115,16 +115,6 @@ Connect them like this and remember to set them in `include/constants.h` accordi
   - Run it with platform io
   - You can uncomment the OTA lines in `platform.ini` if you want. Replace the IP with your device IP.
 
-- `frontend` contains the web code.
-
-  - First run `npm i`
-  - Set your device IP inside the `.env` file
-  - Start the server with `npm run dev`
-  - Build it with `npm run build`. This command creates the `webgui.cpp` for you.
-
-- Build frontend using `Docker`
-  - From the root of the repo, run `docker compose run node`
-
 ## Plugins
 
 1. Start by creating a new C++ file for your plugin. For example, let's call it plugins/MyPlugin.(cpp/h).
@@ -146,7 +136,6 @@ public:
     const char* getName() const override;
 
     void teardown() override; // optional
-    void websocketHook(DynamicJsonDocument &request) override; // optional
 };
 ```
 
@@ -173,10 +162,6 @@ const char* MyPlugin::getName() const {
 
 void MyPlugin::teardown() {
   // code if plugin gets deactivated
-}
-
-void MyPlugin::websocketHook(DynamicJsonDocument &request) {
-  // handle websocket requests
 }
 ```
 

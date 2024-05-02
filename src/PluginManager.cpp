@@ -13,7 +13,6 @@ int Plugin::getId() const
 }
 
 void Plugin::teardown() {}
-void Plugin::websocketHook(DynamicJsonDocument &request) {}
 
 PluginManager::PluginManager() : nextPluginId(1) {}
 
@@ -140,8 +139,4 @@ void PluginManager::activateNextPlugin()
     this->activePluginDuration = 1000UL * std::get<1>(nextPlugin);
 
     setActivePluginById(pluginId);
-
-#ifdef ENABLE_SERVER
-    sendMinimalInfo();
-#endif
 }

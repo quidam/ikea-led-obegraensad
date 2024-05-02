@@ -8,7 +8,6 @@
 
 #include "screen.h"
 #include "signs.h"
-#include "websocket.h"
 
 class Plugin
 {
@@ -21,7 +20,6 @@ public:
     virtual ~Plugin() {}
 
     virtual void teardown();
-    virtual void websocketHook(DynamicJsonDocument &request);
     virtual void setup() = 0;
     virtual void activate() = 0;
     virtual const char *getName() const = 0;
