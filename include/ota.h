@@ -2,8 +2,6 @@
 
 #include "constants.h"
 
-#ifdef ENABLE_SERVER
-
 #include <ESPAsyncWebServer.h>
 #include <AsyncElegantOTA.h>
 
@@ -15,5 +13,3 @@
 void onOTAStart();
 void onOTAEnd();
 void initOTA(AsyncWebServer &server);
-
-#endif

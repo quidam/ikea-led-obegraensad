@@ -11,12 +11,10 @@
 
 #include "PluginManager.h"
 
-#ifdef ENABLE_SERVER
 #include "plugins/BigClockPlugin.h"
 #include "plugins/DatePlugin.h"
 #include "plugins/SunPlugin.h"
 #include "plugins/WeatherPlugin.h"
-#endif
 
 #include "secrets.h"
 #include "ota.h"
@@ -110,7 +108,6 @@ void setup()
   Screen.setup();
 
 // server
-#ifdef ENABLE_SERVER
   connectToWiFi();
 
   // set time server
@@ -134,7 +131,6 @@ void setup()
   pluginManager.addScheduleItem(weatherPluginId, 0);
   pluginManager.addScheduleItem(bigClockPluginId, 5);
   pluginManager.addScheduleItem(sunPluginId, 0);
-#endif
 
   pluginManager.init();
 }

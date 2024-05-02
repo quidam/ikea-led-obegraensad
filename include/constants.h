@@ -1,8 +1,5 @@
 #pragma once
 
-// disable if you do not want to have online functionality
-#define ENABLE_SERVER
-
 #ifdef ESP32
 #define PIN_ENABLE 26
 #define PIN_DATA 27
@@ -22,7 +19,6 @@
 #define uS_TO_S_FACTOR 1000000ULL
 #define SLEEP_DURATION 7ULL * 60 * 60
 
-#ifdef ENABLE_SERVER
 // https://github.com/nayarsystems/posix_tz_db/blob/master/zones.json
 #define NTP_SERVER "de.pool.ntp.org"
 #define TZ_INFO "CET-1CEST,M3.5.0,M10.5.0/3"
@@ -31,7 +27,6 @@
 #define OPENHAB_ITEM_TEMPERATURE "Heizung_Aussentemperatur"
 #define OPENHAB_ITEM_SUNRISE "LokaleSonnendaten_Startzeit"
 #define OPENHAB_ITEM_SUNSET "Sonnenuntergang_Startzeit"
-#endif
 
 #define COLS 16
 #define ROWS 16
